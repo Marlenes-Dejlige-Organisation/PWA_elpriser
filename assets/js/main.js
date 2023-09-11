@@ -135,3 +135,5 @@ if ("geolocation" in navigator) {
   // Call the getLocation function with the default latitude and longitude
   getLocation();
 }
+
+
