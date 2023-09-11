@@ -60,7 +60,7 @@ function findNearestCity(latitude, longitude) {
 // Function to get current weather data
 function getCurrentWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
   fetch(apiUrl)
     .then((response) => {
@@ -81,7 +81,7 @@ function getCurrentWeather() {
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
   fetch(apiUrl)
     .then((response) => {
@@ -139,7 +139,7 @@ if ("geolocation" in navigator) {
 // Fetch timeTable() ISSUE: 10
 function timeTable() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
   fetch(apiUrl)
     .then((response) => {
@@ -161,7 +161,7 @@ function timeTable() {
 // Fetch nextDaysWeather() ISSUE: 11
 function nextDaysWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
   fetch(apiUrl)
     .then((response) => {
