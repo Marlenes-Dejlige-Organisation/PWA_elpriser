@@ -135,3 +135,24 @@ if ("geolocation" in navigator) {
   // Call the getLocation function with the default latitude and longitude
   getLocation();
 }
+
+function timeTable() {
+  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      // Behandle data og vis det på din startskærm
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
