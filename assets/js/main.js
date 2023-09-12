@@ -301,3 +301,50 @@ function nextDaysWeather() {
       console.error("Error:", error);
     });
 }
+
+//  træk data fra getTimeTableForNextDays() ISSUE: 31
+
+// Function to get timetable data for the next days
+function getTimeTableForNextDays() {
+  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      // Extract and display the desired data for the next few days
+      const forecastList = data.list;
+
+      if (forecastList.length > 0) {
+        // Loop through the forecast data
+        forecastList.forEach((forecast) => {
+          const dateTime = forecast.dt_txt; // Date and time
+          const temperature = forecast.main.temp; // Temperature in Celsius
+          const windSpeed = forecast.wind.speed; // Wind speed in m/s
+          const windDirection = forecast.wind.deg; // Wind direction in degrees
+
+          // Use the functions to convert wind direction to compass direction and wind speed to Beaufort scale
+          const compassDirection = degreesToCompass(windDirection);
+          const beaufortScale = windSpeedToBeaufort(windSpeed);
+
+          // Log or process the extracted data as needed
+          console.log('Date and Time:', dateTime);
+          console.log('Temperature:', temperature, 'C');
+          console.log('Wind Speed:', windSpeed, 'm/s');
+          console.log('Wind Direction:', compassDirection);
+          console.log('Wind Speed (Beaufort):', beaufortScale);
+        });
+      } else {
+        console.error('No forecast data found.');
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
