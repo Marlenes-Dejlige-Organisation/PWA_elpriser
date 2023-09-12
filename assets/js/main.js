@@ -57,8 +57,10 @@ function findNearestCity(latitude, longitude) {
     });
 }
 
+
 // Define your OpenCage API key
-const openCageApiKey = 'd2ff6a023f11473d9533c806b6da6aba';
+  const openCageApiKey = 'd2ff6a023f11473d9533c806b6da6aba';
+
 
 // Get references to HTML elements
 const cityInput = document.getElementById('cityInput');
@@ -153,7 +155,6 @@ function windSpeedToBeaufort(windSpeed) {
   }
 }
 
-// Function to get current weather data
 // Function to get current weather data
 function getCurrentWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
