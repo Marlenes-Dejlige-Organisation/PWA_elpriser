@@ -57,6 +57,53 @@ function findNearestCity(latitude, longitude) {
     });
 }
 
+// Define your OpenCage API key
+const openCageApiKey = 'd2ff6a023f11473d9533c806b6da6aba';
+
+// Get references to HTML elements
+const cityInput = document.getElementById('cityInput');
+const searchButton = document.getElementById('searchButton');
+
+// Add an event listener to the search button
+searchButton.addEventListener('click', () => {
+  // Get the city name from the input field
+  const cityName = cityInput.value;
+
+  // Construct the URL for the OpenCage Geocoding API
+  const openCageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+    cityName
+  )}&key=${openCageApiKey}&language=en&pretty=1`;
+
+  // Make a request to the OpenCage Geocoding API
+  fetch(openCageApiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Extract latitude and longitude from the API response
+      if (data.results.length > 0) {
+        const location = data.results[0].geometry;
+        const latitude = location.lat;
+        const longitude = location.lng;
+
+        // Use latitude and longitude in your application (e.g., fetch weather data)
+        console.log(`City: ${cityName}`);
+        console.log(`Latitude: ${latitude}`);
+        console.log(`Longitude: ${longitude}`);
+
+        // You can make additional API calls or perform other actions here
+      } else {
+        console.error('No results found for the city:', cityName);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
+
 // Current WEATHER DATA_med relevant udtræk og rigtige måleenheder. issue:28
 // Function to convert wind direction in degrees to compass direction
 function degreesToCompass(degrees) {
