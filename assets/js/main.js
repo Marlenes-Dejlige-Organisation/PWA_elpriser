@@ -61,6 +61,7 @@ function findNearestCity(latitude, longitude) {
 // Define your OpenCage API key
   const openCageApiKey = 'd2ff6a023f11473d9533c806b6da6aba';
 
+
 // Get references to HTML elements
 const cityInput = document.getElementById('cityInput');
 const searchButton = document.getElementById('searchButton');
@@ -105,8 +106,54 @@ searchButton.addEventListener('click', () => {
     });
 });
 
+// Current WEATHER DATA_med relevant udtræk og rigtige måleenheder. issue:28
+// Function to convert wind direction in degrees to compass direction
+function degreesToCompass(degrees) {
+  const compassDirections = [
+    "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+    "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"
+  ];
 
+  // Ensure degrees are between 0 and 360
+  degrees = (degrees + 360) % 360;
 
+  // Calculate the index in the compassDirections array
+  const index = Math.round(degrees / 22.5);
+
+  // Return the compass direction
+  return compassDirections[index];
+}
+
+// Function to convert wind speed to Beaufort scale
+function windSpeedToBeaufort(windSpeed) {
+  if (windSpeed < 0.5) {
+    return 0; // Calm
+  } else if (windSpeed < 1.5) {
+    return 1; // Light air
+  } else if (windSpeed < 3.3) {
+    return 2; // Light breeze
+  } else if (windSpeed < 5.5) {
+    return 3; // Gentle breeze
+  } else if (windSpeed < 7.9) {
+    return 4; // Moderate breeze
+  } else if (windSpeed < 10.7) {
+    return 5; // Fresh breeze
+  } else if (windSpeed < 13.8) {
+    return 6; // Strong breeze
+  } else if (windSpeed < 17.1) {
+    return 7; // Near gale
+  } else if (windSpeed < 20.7) {
+    return 8; // Gale
+  } else if (windSpeed < 24.4) {
+    return 9; // Strong gale
+  } else if (windSpeed < 28.4) {
+    return 10; // Storm
+  } else if (windSpeed < 32.6) {
+    return 11; // Violent storm
+  } else {
+    return 12; // Hurricane
+  }
+}
 
 // Function to get current weather data
 function getCurrentWeather() {
@@ -121,13 +168,37 @@ function getCurrentWeather() {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
-      // Behandle data og vis det på din startskærm
+      // Extract and display the desired weather data
+      const temperature = data.main.temp;
+      const windSpeed = data.wind.speed;
+      const windDirection = data.wind.deg;
+      const sunriseTimestamp = data.sys.sunrise * 1000; // Convert to milliseconds
+      const sunsetTimestamp = data.sys.sunset * 1000; // Convert to milliseconds
+
+      // Convert wind speed to Beaufort scale
+      const beaufortScale = windSpeedToBeaufort(windSpeed);
+
+      // Convert wind direction to compass direction
+      const compassDirection = degreesToCompass(windDirection);
+
+      // You can convert timestamps to readable dates and times using JavaScript Date objects
+      const sunriseTime = new Date(sunriseTimestamp).toLocaleTimeString();
+      const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString();
+
+      // Display the weather data
+      console.log('Temperature:', temperature, 'C'); // Temperature in Celcels
+      console.log('Wind Speed:', windSpeed, 'm/s');
+      console.log('Wind Speed (Beaufort):', beaufortScale);
+      console.log('Wind Direction:', compassDirection);
+      console.log('Sunrise:', sunriseTime);
+      console.log('Sunset:', sunsetTime);
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
+
+
 
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
