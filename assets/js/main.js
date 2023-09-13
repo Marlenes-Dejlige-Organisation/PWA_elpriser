@@ -213,31 +213,6 @@ function getCurrentWeather() {
 }
 
 
-
-
-
-// Function to get timetable data for the next days
-function getTimeTableForNextDays() {
-  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-  fetch(apiUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      // Behandle data og vis det på din startskærm
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-
 // Check if geolocation is available in the browser
 if ("geolocation" in navigator) {
   // Attempt to get the user's geolocation
@@ -319,7 +294,6 @@ function nextDaysWeather() {
 }
 
 //  træk data fra getTimeTableForNextDays() ISSUE: 31
-
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
