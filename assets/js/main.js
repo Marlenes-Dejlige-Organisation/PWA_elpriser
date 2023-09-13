@@ -186,17 +186,33 @@ function getCurrentWeather() {
       const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString();
 
       // Display the weather data
-      console.log('Temperature:', temperature, 'C'); // Temperature in Celcels
+      console.log('Temperature:', temperature, 'C'); // Temperature in Celsius
       console.log('Wind Speed:', windSpeed, 'm/s');
       console.log('Wind Speed (Beaufort):', beaufortScale);
       console.log('Wind Direction:', compassDirection);
       console.log('Sunrise:', sunriseTime);
       console.log('Sunset:', sunsetTime);
+
+      // Combine sunrise and sunset times into a single string
+      const sunriseAndSunset = `Sunrise: ${sunriseTime}, Sunset: ${sunsetTime}`;
+
+      // Create an <img> element for the icon
+      const iconImg = document.createElement('img');
+      iconImg.src = 'assets/img/symboler/sol opogned ikon.png'; // Set the image source
+
+      // Create a <div> element for the 'sunrise' data
+      const sunriseDiv = document.getElementById('sunrise');
+
+      // Append the icon and sunrise/sunset text to the 'sunrise' div
+      sunriseDiv.appendChild(iconImg); // Add the icon
+      sunriseDiv.appendChild(document.createTextNode(sunriseAndSunset)); // Add the combined text
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
+
+
 
 
 
