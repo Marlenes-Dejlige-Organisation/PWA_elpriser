@@ -202,7 +202,7 @@ function getCurrentWeather() {
 
       // Create a <div> element for the 'sunrise' data
       const sunriseDiv = document.getElementById('sunrise');
-      sunriseDiv.innerHTML = ''; // Clear the contents of the div
+      sunriseDiv.innerHTML = '';
 
       // Append the icon and sunrise/sunset text to the 'sunrise' div
       sunriseDiv.appendChild(iconImg); // Add the icon
