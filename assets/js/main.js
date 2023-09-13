@@ -202,6 +202,7 @@ function getCurrentWeather() {
 
       // Create a <div> element for the 'sunrise' data
       const sunriseDiv = document.getElementById('sunrise');
+      sunriseDiv.innerHTML = ''; // Clear the contents of the div
 
       // Append the icon and sunrise/sunset text to the 'sunrise' div
       sunriseDiv.appendChild(iconImg); // Add the icon
@@ -323,12 +324,16 @@ function getTimeTableForNextDays() {
           const compassDirection = degreesToCompass(windDirection);
           const beaufortScale = windSpeedToBeaufort(windSpeed);
 
+          // Extract weather information
+          const weatherDescription = forecast.weather[0].description; // Weather description
+
           // Log or process the extracted data as needed
           console.log('Date and Time:', dateTime);
           console.log('Temperature:', temperature, 'C');
           console.log('Wind Speed:', windSpeed, 'm/s');
           console.log('Wind Direction:', compassDirection);
           console.log('Wind Speed (Beaufort):', beaufortScale);
+          console.log('Weather:', weatherDescription);
         });
       } else {
         console.error('No forecast data found.');
@@ -338,6 +343,7 @@ function getTimeTableForNextDays() {
       console.error("Error:", error);
     });
 }
+
 
 // Hent dato ISSUE: #39
 // Function to get the current date
