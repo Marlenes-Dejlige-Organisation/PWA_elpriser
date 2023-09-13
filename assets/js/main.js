@@ -358,3 +358,66 @@ console.log('Current Date:', currentDate);
 // date-view issue #40
 const dateElement = document.getElementById('date');
   dateElement.textContent = 'Current Date: ' + currentDate;
+
+
+// temperature issue #43  
+// Function to display temperature data
+function displayTemperature(temperature) {
+  const tempElement = document.getElementById('temp');
+  tempElement.textContent = 'Temperature: ' + temperature + '°C';
+}
+
+
+// Function to get the current temperature
+function getCurrentTemperature() {
+  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8'; // Replace with your actual OpenWeatherMap API key
+  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Extract and display the current temperature
+      const temperature = data.main.temp;
+      displayTemperature(temperature); // Update the 'temp' div with the temperature
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Function to get the user's location or use default values
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      // If geolocation is successful, obtain the latitude and longitude
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+
+      // Call the getCurrentWeather function with the obtained latitude and longitude
+      getCurrentWeather();
+
+      // Call the getCurrentTemperature function with the obtained latitude and longitude
+      getCurrentTemperature();
+    },
+    function (error) {
+      // If the user denies geolocation or there's an error, use default values
+      latitude = defaultLatitude;
+      longitude = defaultLongitude;
+
+      // Call the getCurrentWeather function with the default latitude and longitude
+      getCurrentWeather();
+
+      // Call the getCurrentTemperature function with the default latitude and longitude
+      getCurrentTemperature();
+    }
+  );
+}
+
+// Call the getLocation function to start the process
+getLocation();
+
