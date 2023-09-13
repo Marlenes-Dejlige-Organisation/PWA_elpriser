@@ -348,3 +348,19 @@ function getTimeTableForNextDays() {
       console.error("Error:", error);
     });
 }
+
+// Hent dato ISSUE: #39
+// Function to get the current date
+function getCurrentDate() {
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; // Month is zero-based
+  const year = currentDate.getFullYear();
+
+  const formattedDate = `${day}/${month}/${year}`;
+  return formattedDate;
+}
+
+// Call the function to get the current date
+const currentDate = getCurrentDate();
+console.log('Current Date:', currentDate);
