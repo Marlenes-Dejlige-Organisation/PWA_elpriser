@@ -365,6 +365,6 @@ function getCurrentDate() {
 const currentDate = getCurrentDate();
 console.log('Current Date:', currentDate);
 
-
+// date-view issue #40
 const dateElement = document.getElementById('date');
   dateElement.textContent = 'Current Date: ' + currentDate;
