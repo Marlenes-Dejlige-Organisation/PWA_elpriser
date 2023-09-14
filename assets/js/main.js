@@ -431,3 +431,45 @@ function getLocation() {
 // Call the getLocation function to start the process
 getLocation();
 
+// vind-styrke-og-retning issue 45
+
+// Function to get timetable data for the next days
+function getTimeTableForNextDays() {
+  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      // Extract and display the desired data for the next few days
+      const forecastList = data.list;
+
+      if (forecastList.length > 0) {
+        // Assuming you want the wind information for the first forecast entry
+        const firstForecast = forecastList[0];
+        const windSpeed = firstForecast.wind.speed;
+        const windDirection = degreesToCompass(firstForecast.wind.deg);
+
+        // Update the 'wind' div with the wind information
+        updateWind(windSpeed, windDirection);
+      } else {
+        console.error('No forecast data found.');
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Function to update the 'wind' div with wind information
+function updateWind(speed, direction) {
+  const windElement = document.getElementById('wind');
+  windElement.textContent = `Wind: ${speed} m/s ${direction}`;
+}
+
