@@ -377,7 +377,6 @@ function getLocation() {
 // Call the getLocation function to start the process
 getLocation();
 
-//weathersymbols: issue44 - inkluderede mindre tilretning af getTimeTableForNextDays()
 
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
@@ -397,6 +396,15 @@ function getTimeTableForNextDays() {
       const forecastList = data.list;
 
       if (forecastList.length > 0) {
+        
+        // Assuming you want the wind information for the first forecast entry
+        const firstForecast = forecastList[0];
+        const windSpeed = firstForecast.wind.speed;
+        const windDirection = degreesToCompass(firstForecast.wind.deg);
+
+        // Update the 'wind' div with the wind information
+        updateWind(windSpeed, windDirection);
+        
         // Loop through the forecast data
         forecastList.forEach((forecast) => {
           const dateTime = forecast.dt_txt; // Date and time
@@ -420,6 +428,11 @@ function getTimeTableForNextDays() {
     });
 }
 
+// Function to update the 'wind' div with wind information
+function updateWind(speed, direction) {
+  const windElement = document.getElementById('wind');
+  windElement.textContent = `Wind: ${speed} m/s ${direction}`;
+}
 
 // Function to display weather icon based on weather description issue 44
 function displayWeatherIcon(weatherDescription) {
@@ -452,8 +465,3 @@ function displayWeatherIcon(weatherDescription) {
   weatherIconElement.innerHTML = ''; // Clear previous content
   weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
 }
-
-
-
-
-
