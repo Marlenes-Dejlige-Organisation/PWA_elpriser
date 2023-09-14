@@ -186,41 +186,33 @@ function getCurrentWeather() {
       const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString();
 
       // Display the weather data
-      console.log('Temperature:', temperature, 'C'); // Temperature in Celcels
+      console.log('Temperature:', temperature, 'C'); // Temperature in Celsius
       console.log('Wind Speed:', windSpeed, 'm/s');
       console.log('Wind Speed (Beaufort):', beaufortScale);
       console.log('Wind Direction:', compassDirection);
       console.log('Sunrise:', sunriseTime);
       console.log('Sunset:', sunsetTime);
+
+      // Combine sunrise and sunset times into a single string
+      const sunriseAndSunset = `Sunrise: ${sunriseTime}, Sunset: ${sunsetTime}`;
+
+      // Create an <img> element for the icon
+      const iconImg = document.createElement('img');
+      iconImg.src = 'assets/img/symboler/sol opogned ikon.png'; // Set the image source
+
+      // Create a <div> element for the 'sunrise' data
+      const sunriseDiv = document.getElementById('sunrise');
+      sunriseDiv.innerHTML = '';
+
+      // Append the icon and sunrise/sunset text to the 'sunrise' div
+      sunriseDiv.appendChild(iconImg); // Add the icon
+      sunriseDiv.appendChild(document.createTextNode(sunriseAndSunset)); // Add the combined text
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
-
-
-// Function to get timetable data for the next days
-function getTimeTableForNextDays() {
-  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-  fetch(apiUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      // Behandle data og vis det på din startskærm
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
 
 // Check if geolocation is available in the browser
 if ("geolocation" in navigator) {
@@ -302,52 +294,6 @@ function nextDaysWeather() {
     });
 }
 
-//  træk data fra getTimeTableForNextDays() ISSUE: 31
-
-// Function to get timetable data for the next days
-function getTimeTableForNextDays() {
-  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
-  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-
-  fetch(apiUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-
-      return response.json();
-    })
-    .then((data) => {
-      // Extract and display the desired data for the next few days
-      const forecastList = data.list;
-
-      if (forecastList.length > 0) {
-        // Loop through the forecast data
-        forecastList.forEach((forecast) => {
-          const dateTime = forecast.dt_txt; // Date and time
-          const temperature = forecast.main.temp; // Temperature in Celsius
-          const windSpeed = forecast.wind.speed; // Wind speed in m/s
-          const windDirection = forecast.wind.deg; // Wind direction in degrees
-
-          // Use the functions to convert wind direction to compass direction and wind speed to Beaufort scale
-          const compassDirection = degreesToCompass(windDirection);
-          const beaufortScale = windSpeedToBeaufort(windSpeed);
-
-          // Log or process the extracted data as needed
-          console.log('Date and Time:', dateTime);
-          console.log('Temperature:', temperature, 'C');
-          console.log('Wind Speed:', windSpeed, 'm/s');
-          console.log('Wind Direction:', compassDirection);
-          console.log('Wind Speed (Beaufort):', beaufortScale);
-        });
-      } else {
-        console.error('No forecast data found.');
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
 
 // Hent dato ISSUE: #39
 // Function to get the current date
@@ -431,7 +377,6 @@ function getLocation() {
 // Call the getLocation function to start the process
 getLocation();
 
-// vind-styrke-og-retning issue 45
 
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
@@ -451,6 +396,7 @@ function getTimeTableForNextDays() {
       const forecastList = data.list;
 
       if (forecastList.length > 0) {
+        
         // Assuming you want the wind information for the first forecast entry
         const firstForecast = forecastList[0];
         const windSpeed = firstForecast.wind.speed;
@@ -458,6 +404,21 @@ function getTimeTableForNextDays() {
 
         // Update the 'wind' div with the wind information
         updateWind(windSpeed, windDirection);
+        
+        // Loop through the forecast data
+        forecastList.forEach((forecast) => {
+          const dateTime = forecast.dt_txt; // Date and time
+          const temperature = forecast.main.temp; // Temperature in Celsius
+          const weatherDescription = forecast.weather[0].description; // Weather description
+
+          // Call the function to display the weather icon based on the weather description
+          displayWeatherIcon(weatherDescription);
+
+          // Log or process the extracted data as needed
+          console.log('Date and Time:', dateTime);
+          console.log('Temperature:', temperature, 'C');
+          console.log('Weather:', weatherDescription);
+        });
       } else {
         console.error('No forecast data found.');
       }
@@ -473,3 +434,34 @@ function updateWind(speed, direction) {
   windElement.textContent = `Wind: ${speed} m/s ${direction}`;
 }
 
+// Function to display weather icon based on weather description issue 44
+function displayWeatherIcon(weatherDescription) {
+  const weatherIconElement = document.getElementById('vejrtype'); // Assuming you have an HTML element with the id 'vejrtype'
+  const iconImg = document.createElement('img');
+
+  let iconSrc;
+
+  // Check the weather description and set the appropriate icon source
+  if (weatherDescription.toLowerCase().includes('clouds')) {
+    if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
+      // For "few clouds" or "broken clouds"
+      iconSrc = 'assets/img/vejrikoner/letskyet.png';
+    } else {
+      // For other cloud conditions
+      iconSrc = 'assets/img/vejrikoner/skyet.png';
+    }
+  } else if (weatherDescription.toLowerCase() === 'clear') {
+    iconSrc = 'assets/img/vejrikoner/sol.png';
+  } else if (weatherDescription.toLowerCase() === 'rain') {
+    iconSrc = 'assets/img/vejrikoner/regn.png';
+  } else if (weatherDescription.toLowerCase() === 'snow') {
+    iconSrc = 'assets/img/vejrikoner/sne.png';
+  } else {
+    // If the weather description is unknown, display a default icon
+    iconSrc = 'assets/img/asshat.png';
+  }
+
+  iconImg.src = iconSrc; // Set the image source
+  weatherIconElement.innerHTML = ''; // Clear previous content
+  weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
+}
