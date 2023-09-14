@@ -57,55 +57,6 @@ function findNearestCity(latitude, longitude) {
     });
 }
 
-
-// Define your OpenCage API key
-  const openCageApiKey = 'd2ff6a023f11473d9533c806b6da6aba';
-
-
-// Get references to HTML elements
-const cityInput = document.getElementById('cityInput');
-const searchButton = document.getElementById('searchButton');
-
-// Add an event listener to the search button
-searchButton.addEventListener('click', () => {
-  // Get the city name from the input field
-  const cityName = cityInput.value;
-
-  // Construct the URL for the OpenCage Geocoding API
-  const openCageApiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
-    cityName
-  )}&key=${openCageApiKey}&language=en&pretty=1`;
-
-  // Make a request to the OpenCage Geocoding API
-  fetch(openCageApiUrl)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // Extract latitude and longitude from the API response
-      if (data.results.length > 0) {
-        const location = data.results[0].geometry;
-        const latitude = location.lat;
-        const longitude = location.lng;
-
-        // Use latitude and longitude in your application (e.g., fetch weather data)
-        console.log(`City: ${cityName}`);
-        console.log(`Latitude: ${latitude}`);
-        console.log(`Longitude: ${longitude}`);
-
-        // You can make additional API calls or perform other actions here
-      } else {
-        console.error('No results found for the city:', cityName);
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-});
-
 // Current WEATHER DATA_med relevant udtræk og rigtige måleenheder. issue:28
 // Function to convert wind direction in degrees to compass direction
 function degreesToCompass(degrees) {
@@ -155,6 +106,7 @@ function windSpeedToBeaufort(windSpeed) {
   }
 }
 
+// Function to get current weather data
 // Function to get current weather data
 function getCurrentWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
@@ -271,8 +223,77 @@ function timeTable() {
       console.error("Error:", error);
     });
 }
+// // Fetch timeTable() ISSUE: 10
+// function timeTable() {
+//   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
+//   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
-// Fetch nextDaysWeather() ISSUE: 11
+//   fetch(apiUrl)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(`Network response was not ok: ${response.status}`);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       // Extract and display data for the next hours of the current day
+//       extractHourlyData(data);
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// }__________________________________________________________________________________
+
+// Function to extract and return hourly data as an array
+function extractHourlyData(data) {
+  // Check if there is available data in the timetable
+  if (!data || !data.list || data.list.length === 0) {
+    console.log('No available timetable data.');
+    return [];
+  }
+
+  // Get the current date and time
+  const currentTime = new Date();
+  const hourlyData = []; // Array to store hourly data
+
+  // Loop through timetable data and extract information for the next hours of the current day
+  for (const forecast of data.list) {
+    // Convert the forecast timestamp to a JavaScript Date object
+    const forecastTime = new Date(forecast.dt * 1000);
+
+    // Check if the forecast is for the current day and the next hours
+    if (forecastTime.getDate() === currentTime.getDate()) {
+      // Extract the specific data you want
+      const temperature = forecast.main.temp;
+      const windSpeed = forecast.wind.speed;
+      const windDirection = forecast.wind.deg;
+
+      // Create an object with the desired data
+      const hourlyInfo = {
+        Temperature: temperature + ' °C',
+        'Wind Speed': windSpeed + ' m/s',
+        'Wind Speed (Beaufort)': windSpeedToBeaufort(windSpeed),
+        'Wind Direction': degreesToCompass(windDirection),
+      };
+
+      // Push the object to the hourlyData array
+      hourlyData.push(hourlyInfo);
+    }
+  }
+
+  return hourlyData;
+}
+
+// Call the timeTable function to fetch and display hourly data
+const hourlyData = extractHourlyData(data);
+console.log(hourlyData);
+
+
+
+
+
+
+// Fetch nextDaysWeather() ISSUE: 11____________________________________________________________________
 function nextDaysWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
@@ -292,6 +313,7 @@ function nextDaysWeather() {
     .catch((error) => {
       console.error("Error:", error);
     });
+<<<<<<< Updated upstream
 }
 
 
@@ -457,3 +479,6 @@ function displayWeatherIcon(weatherDescription) {
 
 
 
+=======
+}
+>>>>>>> Stashed changes
