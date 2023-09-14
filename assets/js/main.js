@@ -376,8 +376,50 @@ function getLocation() {
 
 // Call the getLocation function to start the process
 getLocation();
+//__________________________________
+// Function to display weather data in the table
+function displayWeatherTable(data) {
+  const weatherTable = document.getElementById('weatherTable');
+  const tbody = weatherTable.querySelector('tbody');
+
+  // Clear previous data
+  tbody.innerHTML = '';
+
+  // Loop through data and create rows in the table
+  data.forEach((forecast) => {
+    const dateTimeParts = forecast.dt_txt.split(' ')[1].split(':'); // Split time into parts
+    const hour = ('0' + dateTimeParts[0]).slice(-2); // Format hour with two digits (e.g., '01')
+    const temperature = Math.round(forecast.main.temp); // Round temperature to the nearest whole number
+    const windSpeed = forecast.wind.speed.toFixed(1); // Wind speed with one decimal place
+    const weatherDescription = forecast.weather[0].description; // Weather description
+
+    // Create a new table row (tr)
+    const row = document.createElement('tr');
+
+    // Create cells for each data column
+    const timeCell = document.createElement('td');
+    timeCell.textContent = hour;
+    row.appendChild(timeCell);
+
+    const tempCell = document.createElement('td');
+    tempCell.textContent = temperature + '°C'; // Temperature without decimal
+    row.appendChild(tempCell);
+
+    const windCell = document.createElement('td');
+    windCell.textContent = windSpeed + ' m/s';
+    row.appendChild(windCell);
+
+    const weatherCell = document.createElement('td');
+    weatherCell.textContent = weatherDescription;
+    row.appendChild(weatherCell);
+
+    // Add the row to the table
+    tbody.appendChild(row);
+  });
+}
 
 
+//_______________________________________________________________________
 // Function to get timetable data for the next days
 function getTimeTableForNextDays() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
@@ -396,7 +438,6 @@ function getTimeTableForNextDays() {
       const forecastList = data.list;
 
       if (forecastList.length > 0) {
-        
         // Assuming you want the wind information for the first forecast entry
         const firstForecast = forecastList[0];
         const windSpeed = firstForecast.wind.speed;
@@ -404,21 +445,12 @@ function getTimeTableForNextDays() {
 
         // Update the 'wind' div with the wind information
         updateWind(windSpeed, windDirection);
-        
-        // Loop through the forecast data
-        forecastList.forEach((forecast) => {
-          const dateTime = forecast.dt_txt; // Date and time
-          const temperature = forecast.main.temp; // Temperature in Celsius
-          const weatherDescription = forecast.weather[0].description; // Weather description
 
-          // Call the function to display the weather icon based on the weather description
-          displayWeatherIcon(weatherDescription);
+        // Call the function to display the weather icon based on the weather description
+        displayWeatherIcon(firstForecast.weather[0].description);
 
-          // Log or process the extracted data as needed
-          console.log('Date and Time:', dateTime);
-          console.log('Temperature:', temperature, 'C');
-          console.log('Weather:', weatherDescription);
-        });
+        // Call the function to display the weather table with the forecast data
+        displayWeatherTable(forecastList);
       } else {
         console.error('No forecast data found.');
       }
@@ -427,6 +459,7 @@ function getTimeTableForNextDays() {
       console.error("Error:", error);
     });
 }
+
 
 // Function to update the 'wind' div with wind information
 function updateWind(speed, direction) {
