@@ -499,3 +499,208 @@ function displayWeatherIcon(weatherDescription) {
   weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
 }
 
+// Next few days issue #59
+
+// Function to fetch weather data based on latitude and longitude
+async function fetchWeatherData(lat, lon) {
+  const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
+  const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Weather data not available');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+  }
+}
+
+// Function to display weather icon based on weather description
+function displayWeatherIcon(weatherDescription, weatherIconElement) {
+  const iconImg = document.createElement('img');
+
+  let iconSrc;
+
+  // Check the weather description and set the appropriate icon source
+  if (weatherDescription.toLowerCase().includes('clouds')) {
+    if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
+      // For "few clouds" or "broken clouds"
+      iconSrc = 'assets/img/vejrikoner/letskyet.png';
+    } else {
+      // For other cloud conditions
+      iconSrc = 'assets/img/vejrikoner/skyet.png';
+    }
+  } else if (weatherDescription.toLowerCase() === 'clear') {
+    iconSrc = 'assets/img/vejrikoner/sol.png';
+  } else if (weatherDescription.toLowerCase() === 'rain') {
+    iconSrc = 'assets/img/vejrikoner/regn.png';
+  } else if (weatherDescription.toLowerCase() === 'snow') {
+    iconSrc = 'assets/img/vejrikoner/sne.png';
+  } else {
+    // If the weather description is unknown, display a default icon
+    iconSrc = 'assets/img/asshat.png';
+  }
+
+  iconImg.src = iconSrc; // Set the image source
+  weatherIconElement.innerHTML = ''; // Clear previous content
+  weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
+}
+
+// Function to display weather information for the next seven days one at a time
+async function displayNextDayWeather(dayIndex) {
+  const upcomingDaysDiv = document.getElementById('upcomingDays');
+  upcomingDaysDiv.innerHTML = ''; // Clear previous content
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const weatherData = await fetchWeatherData(lat, lon);
+
+      if (!weatherData) {
+        return;
+      }
+
+      if (dayIndex >= 0 && dayIndex < 7) {
+        const forecast = weatherData.list[dayIndex];
+        const date = new Date(forecast.dt * 1000); // Convert timestamp to date
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+        const weatherDescription = forecast.weather[0].description;
+        const temperature = forecast.main.temp.toFixed(1); // Temperature in Celsius
+
+        // Create a new element for the day's weather information
+        const dayElement = document.createElement('div');
+
+        // Display weather icon using the displayWeatherIcon function
+        const weatherIconElement = document.createElement('div');
+        displayWeatherIcon(weatherDescription, weatherIconElement);
+
+        // Append the day's weather information and icon to the 'upcomingDays' div
+        dayElement.innerHTML = `
+          <p>${dayOfWeek}</p>
+          <p>${weatherDescription}</p>
+          <p>${temperature}°C</p>
+        `;
+
+        dayElement.appendChild(weatherIconElement);
+
+        upcomingDaysDiv.appendChild(dayElement);
+      }
+    });
+  } else {
+    console.error('Geolocation is not available in this browser.');
+  }
+}
+
+// Initialize with the first day's weather
+let currentDayIndex = 0;
+displayNextDayWeather(currentDayIndex);
+
+// Function to display the next day's weather
+function showNextDay() {
+  if (currentDayIndex < 6) {
+    currentDayIndex++;
+    displayNextDayWeather(currentDayIndex);
+  }
+}
+
+// Function to display the previous day's weather
+function showPreviousDay() {
+  if (currentDayIndex > 0) {
+    currentDayIndex--;
+    displayNextDayWeather(currentDayIndex);
+  }
+}
+
+// Function to display weather icon based on weather description
+function displayWeatherIcon(weatherDescription) {
+  let iconSrc;
+
+  // Check the weather description and set the appropriate icon source
+  if (weatherDescription.toLowerCase().includes('clouds')) {
+    if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
+      // For "few clouds" or "broken clouds"
+      iconSrc = 'assets/img/vejrikoner/letskyet.png';
+    } else {
+      // For other cloud conditions
+      iconSrc = 'assets/img/vejrikoner/skyet.png';
+    }
+  } else if (weatherDescription.toLowerCase() === 'clear') {
+    iconSrc = 'assets/img/vejrikoner/sol.png';
+  } else if (weatherDescription.toLowerCase() === 'rain') {
+    iconSrc = 'assets/img/vejrikoner/regn.png';
+  } else if (weatherDescription.toLowerCase() === 'snow') {
+    iconSrc = 'assets/img/vejrikoner/sne.png';
+  } else {
+    // If the weather description is unknown, display a default icon
+    iconSrc = 'assets/img/asshat.png';
+  }
+
+  // Return the HTML for the weather icon
+  return `<img src="${iconSrc}" alt="Weather Icon">`;
+}
+// Function to display weather information for the next seven days
+async function displayUpcomingWeather() {
+  const upcomingDaysDiv = document.getElementById('upcomingDays');
+  upcomingDaysDiv.innerHTML = ''; // Clear previous content
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      const weatherData = await fetchWeatherData(lat, lon);
+
+      if (!weatherData) {
+        return;
+      }
+
+      // Initialize an object to track unique days
+      const uniqueDays = {};
+
+      // Assuming that weatherData.list contains forecast data for the next seven days
+      for (let i = 0; i < weatherData.list.length; i++) {
+        const forecast = weatherData.list[i];
+        const date = new Date(forecast.dt * 1000); // Convert timestamp to date
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+        // Check if this day has been added to the list already
+        if (!uniqueDays[dayOfWeek]) {
+          const weatherDescription = forecast.weather[0].description;
+          const temperature = forecast.main.temp.toFixed(1); // Temperature in Celsius
+
+          // Create a new element for each day's weather information
+          const dayElement = document.createElement('div');
+
+          // Display weather icon using the displayWeatherIcon function
+          const weatherIconElement = document.createElement('div');
+          weatherIconElement.innerHTML = displayWeatherIcon(weatherDescription);
+
+          // Append the day's weather information and icon to the 'upcomingDays' div
+          dayElement.innerHTML = `
+            <p>${dayOfWeek}</p>
+            <p>${weatherDescription}</p>
+            <p>${temperature}°C</p>
+          `;
+
+          dayElement.appendChild(weatherIconElement);
+
+          upcomingDaysDiv.appendChild(dayElement);
+
+          // Mark this day as added to the list
+          uniqueDays[dayOfWeek] = true;
+        }
+      }
+    });
+  } else {
+    console.error('Geolocation is not available in this browser.');
+  }
+}
+
+// Call the function to display upcoming weather when the page loads
+displayUpcomingWeather();
