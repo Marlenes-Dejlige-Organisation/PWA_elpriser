@@ -461,11 +461,16 @@ function getTimeTableForNextDays() {
 }
 
 
-// Function to update the 'wind' div with wind information
+// Function to update the 'wind' div with wind information_____________________issue64 er integreret her i
 function updateWind(speed, direction) {
   const windElement = document.getElementById('wind');
-  windElement.textContent = `Wind: ${speed} m/s ${direction}`;
+  const windSymbol = `<img src="assets/img/symboler/vind2.png" alt="Wind Symbol" />`;
+  const windData = `<div style="position: relative;">${windSymbol}<span style="position: absolute; top: 50%; left: 10%; transform: translate(-50%, -50%);">${speed} m/s ${direction}</span></div>`;
+  windElement.innerHTML = windData;
 }
+
+
+
 
 // Function to display weather icon based on weather description issue 44__________________________________________________________
 function displayWeatherIconORIGINAL(weatherDescription) {
