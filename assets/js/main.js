@@ -1,3 +1,4 @@
+//_____________________________________________________________________________________________________________Location:
 // FetchLocationData() ISSUE: 8
 
 // Define default latitude and longitude values (Copenhagen)
@@ -105,8 +106,11 @@ searchButton.addEventListener('click', () => {
       console.error('Error:', error);
     });
 });
+//---------------------------------------------------------------------------------------------------------------------------Location slut_________
 
-// Current WEATHER DATA_med relevant udtræk og rigtige måleenheder. issue:28
+
+//______________________________________________________________________________________________________________________________OMREGNERE:__________
+// Omregnerfunktioner til de rigtige måleenheder. issue:28
 // Function to convert wind direction in degrees to compass direction
 function degreesToCompass(degrees) {
   const compassDirections = [
@@ -154,8 +158,13 @@ function windSpeedToBeaufort(windSpeed) {
     return 12; // Hurricane
   }
 }
+//------------------------------------------------------------------------------------------------------------OMREGNING slut______________________
 
-// Function to get current weather data
+
+
+// Function to ___________________________________________________________________________________________________________get current weather data:
+
+
 function getCurrentWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
@@ -185,7 +194,7 @@ function getCurrentWeather() {
       const sunriseTime = new Date(sunriseTimestamp).toLocaleTimeString();
       const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString();
 
-      // Display the weather data
+      // Display the weather data i konsol
       console.log('Temperature:', temperature, 'C'); // Temperature in Celsius
       console.log('Wind Speed:', windSpeed, 'm/s');
       console.log('Wind Speed (Beaufort):', beaufortScale);
@@ -249,8 +258,11 @@ if ("geolocation" in navigator) {
   // Call the getLocation function with the default latitude and longitude
   getLocation();
 }
+//-------------------------------------------------------------------------------------------------------------------------Current Weather slut_____________
 
-// Fetch timeTable() ISSUE: 10
+// _________________________________________________________________________________________________________________Fetch timeTable() ISSUE: 10_______________________________________________________________
+
+
 function timeTable() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
@@ -271,8 +283,11 @@ function timeTable() {
       console.error("Error:", error);
     });
 }
+//--------------------------------------------------------------------------------------------------------------------Time Table slut______________________________
 
-// Fetch nextDaysWeather() ISSUE: 11
+// ______________________________________________________________________________________________________________Fetch nextDaysWeather() ISSUE: 11____________________________________
+
+
 function nextDaysWeather() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
@@ -293,9 +308,10 @@ function nextDaysWeather() {
       console.error("Error:", error);
     });
 }
+//--------------------------------------------------------------------------------------------------------NextDaysWeather slut______________________________
 
+// ____________________________________________________________________________________________________________Hent dato ISSUE: #39______________________________________________
 
-// Hent dato ISSUE: #39
 // Function to get the current date
 function getCurrentDate() {
   const currentDate = new Date();
@@ -376,8 +392,11 @@ function getLocation() {
 
 // Call the getLocation function to start the process
 getLocation();
-//__________________________________
+//_____________________________________________________________________________________________________________________________DisplayWeatherTable:
+
 // Function to display weather data in the table
+
+
 function displayWeatherTable(data) {
   const weatherTable = document.getElementById('weatherTable');
   const tbody = document.createElement('tbody'); // Opret en <tbody> til at indeholde rækkerne
@@ -410,7 +429,30 @@ function displayWeatherTable(data) {
     row.appendChild(windCell);
 
     const weatherCell = document.createElement('td');
-    weatherCell.textContent = weatherDescription;
+    const weatherIcon = document.createElement('img');
+    
+    // Determine the weather icon based on weatherDescription
+    let iconSrc;
+    if (weatherDescription.toLowerCase().includes('rain')) {
+      iconSrc = 'assets/img/vejrikoner/regn.png';
+    } else if (weatherDescription.toLowerCase().includes('clouds')) {
+      if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
+        iconSrc = 'assets/img/vejrikoner/letskyet.png';
+      } else {
+        iconSrc = 'assets/img/vejrikoner/skyet.png';
+      }
+    } else if (weatherDescription.toLowerCase() === 'clear') {
+      iconSrc = 'assets/img/vejrikoner/sol.png';
+    } else if (weatherDescription.toLowerCase() === 'snow') {
+      iconSrc = 'assets/img/vejrikoner/sne.png';
+    } else {
+      // If the weather description is unknown, display a default icon
+      iconSrc = 'assets/img/asshat.png';
+    }
+
+    weatherIcon.src = iconSrc; // Set the image source for the weather icon
+    weatherIcon.style.width = '4%'; // Set the width to 10% of the original size
+    weatherCell.appendChild(weatherIcon); // Add the weather icon to the cell
     row.appendChild(weatherCell);
 
     // Add the row to the <tbody>
@@ -423,8 +465,12 @@ function displayWeatherTable(data) {
 
 
 
-//_______________________________________________________________________
-// Function to get timetable data for the next days
+//------------------------------------------------------------------------------------------------------------------------weather table slut_______________________________
+
+
+//__________________________________________________________________________________________________________get timetable data for the next days:__________________________
+
+
 function getTimeTableForNextDays() {
   const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8';
   const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
@@ -464,8 +510,14 @@ function getTimeTableForNextDays() {
     });
 }
 
+//------------------------------------------------------------------------------------------------------------GetTimeTable for nextDays slut__________
 
-// Function to update the 'wind' div with wind information_____________________issue64 er integreret her i
+//________________________________________________________________________________________________________________________________________WIND:
+
+
+// Function to update the 'wind' div with wind information
+
+
 function updateWind(speed, direction) {
   const windElement = document.getElementById('wind');
   const windSymbol = `<img src="assets/img/symboler/vind2.png" alt="Wind Symbol" />`;
@@ -473,12 +525,12 @@ function updateWind(speed, direction) {
   windElement.innerHTML = windData;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------WInd slut___________
 
 
-
-// Function to display weather icon based on weather description issue 44__________________________________________________________
+// ____________________________________________________________________________________Display weather icon based on weather description_issue 44:
 function displayWeatherIconORIGINAL(weatherDescription) {
-  const weatherIconElement = document.getElementById('vejrtype'); // Assuming you have an HTML element with the id 'vejrtype'
+  const weatherIconElement = document.getElementById('vejrtype'); 
   const iconImg = document.createElement('img');
 
   let iconSrc;
@@ -509,9 +561,9 @@ function displayWeatherIconORIGINAL(weatherDescription) {
   weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
 }
 
-//__________________________________
+//__________________________________--------------------------------------------------------------------------------------displayICON ORIGINAL SLUT____________
 
-// Next few days issue #59
+// ______________________________________________________________________________________________________________________Next few days Fetch issue #59:
 
 // Function to fetch weather data based on latitude and longitude
 async function fetchWeatherData(lat, lon) {
@@ -530,39 +582,9 @@ async function fetchWeatherData(lat, lon) {
     console.error('Error fetching weather data:', error);
   }
 }
+//---------------------------------------------------------------------------------------------------------------------------Fetch Next days slut______________
 
-// Function to display weather icon based on weather description
-function displayWeatherIcon(weatherDescription, weatherIconElement) {
-  const iconImg = document.createElement('img');
-
-  let iconSrc;
-
-  // Check the weather description and set the appropriate icon source
-  if (weatherDescription.toLowerCase().includes('clouds')) {
-    if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
-      // For "few clouds" or "broken clouds"
-      iconSrc = 'assets/img/vejrikoner/letskyet.png';
-    } else {
-      // For other cloud conditions
-      iconSrc = 'assets/img/vejrikoner/skyet.png';
-    }
-  } else if (weatherDescription.toLowerCase() === 'clear') {
-    iconSrc = 'assets/img/vejrikoner/sol.png';
-  } else if (weatherDescription.toLowerCase() === 'rain') {
-    iconSrc = 'assets/img/vejrikoner/regn.png';
-  } else if (weatherDescription.toLowerCase() === 'snow') {
-    iconSrc = 'assets/img/vejrikoner/sne.png';
-  } else {
-    // If the weather description is unknown, display a default icon
-    iconSrc = 'assets/img/asshat.png';
-  }
-
-  iconImg.src = iconSrc; // Set the image source
-  weatherIconElement.innerHTML = ''; // Clear previous content
-  weatherIconElement.appendChild(iconImg); // Add the weather icon to the HTML element
-}
-//------------------------
-// Function to display weather information for the next seven days one at a time--------------------click on a day and show tableSTART-------------------
+// _________________________________________________________________________________________Function to display weather next seven days one at a time
 async function displayNextDayWeather(dayIndex) {
   const upcomingDaysDiv = document.getElementById('upcomingDays');
   upcomingDaysDiv.innerHTML = ''; // Clear previous content
@@ -600,14 +622,7 @@ async function displayNextDayWeather(dayIndex) {
           displayWeatherTimetable(dayIndex, weatherData, weatherDescription);
         });
 
-        // Marlene har udkommenteret disse, da da skabte en torsdag for meget? -----------------OBS______________
-        //Append the day's weather information and icon to the 'upcomingDays' div 
-        // dayElement.innerHTML = `
-        //   <p>${dayOfWeek}</p>
-        //   <p>${weatherDescription}</p>
-        //   <p>${temperature}°C</p>
-        // `;-----------------------------------------------------OBS slut________________________________________
-
+  
         dayElement.appendChild(weatherIconElement);
 
         upcomingDaysDiv.appendChild(dayElement);
@@ -618,74 +633,6 @@ async function displayNextDayWeather(dayIndex) {
   }
 }
 
-function displayWeatherTimetable(dayIndex, weatherData) {
-  // Get the forecast data for the selected day
-  const forecast = weatherData.list[dayIndex];
-
-  // Create a new element to display the timetable
-  const timetableElement = document.createElement('div');
-
-  // Call the function to populate and display the timetable
-  populateWeatherTimetable(timetableElement, forecast);
-
-  // Clear the 'upcomingDays' div and append the timetable
-  const upcomingDaysDiv = document.getElementById('upcomingDays');
-  upcomingDaysDiv.innerHTML = '';
-  upcomingDaysDiv.appendChild(timetableElement);
-}
-function populateWeatherTimetable(timetableElement, forecast) {
-  // Create the table structure
-  const weatherTable = document.createElement('table');
-  const tableHead = document.createElement('thead');
-  const tableBody = document.createElement('tbody');
-
-  // Create table headers
-  const tableHeaders = ['Time', 'Temperature', 'Wind Speed', 'Weather Description'];
-
-  const headerRow = document.createElement('tr');
-  tableHeaders.forEach((headerText) => {
-    const headerCell = document.createElement('th');
-    headerCell.textContent = headerText;
-    headerRow.appendChild(headerCell);
-  });
-
-  tableHead.appendChild(headerRow);
-  weatherTable.appendChild(tableHead);
-
-  // Populate the table with weather data
-  const forecastList = forecast.list;
-  forecastList.forEach((hourlyForecast) => {
-    const dateTimeParts = hourlyForecast.dt_txt.split(' ')[1].split(':');
-    const hour = ('0' + dateTimeParts[0]).slice(-2);
-    const temperature = Math.round(hourlyForecast.main.temp);
-    const windSpeed = hourlyForecast.wind.speed.toFixed(1);
-    const weatherDescription = hourlyForecast.weather[0].description;
-
-    const row = document.createElement('tr');
-    const timeCell = document.createElement('td');
-    timeCell.textContent = hour;
-    row.appendChild(timeCell);
-
-    const tempCell = document.createElement('td');
-    tempCell.textContent = temperature + '°C';
-    row.appendChild(tempCell);
-
-    const windCell = document.createElement('td');
-    windCell.textContent = windSpeed + ' m/s';
-    row.appendChild(windCell);
-
-    const weatherCell = document.createElement('td');
-    weatherCell.textContent = weatherDescription;
-    row.appendChild(weatherCell);
-
-    tableBody.appendChild(row);
-  });
-
-  weatherTable.appendChild(tableBody);
-  timetableElement.appendChild(weatherTable);
-}
-
-//-----------------------------------------------------------------click on a day and show table sLUT
 
 // Initialize with the first day's weather
 let currentDayIndex = 0;
@@ -706,8 +653,8 @@ function showPreviousDay() {
     displayNextDayWeather(currentDayIndex);
   }
 }
-
-// Function to display weather icon based on weather description___________________________________den der fucker op
+//-------------------------------------------------------------------------------------------------------------------------NextDaysWeather SLut__________
+// _________________________________________________________________________________________________________Function to display weather icon (version2):
 function displayWeatherIcon(weatherDescription) {
   let iconSrc;
 
@@ -793,7 +740,7 @@ async function displayUpcomingWeather() {
     console.error('Geolocation is not available in this browser.');
   }
 }
-///_______________testetets
+//--------------------------------------------------------------------------------------------------------------icon version (2) sLUT_________________
 
 //____________________________
 
