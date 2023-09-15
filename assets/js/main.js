@@ -418,14 +418,17 @@ function displayWeatherTable(data) {
     // Create cells for each data column
     const timeCell = document.createElement('td');
     timeCell.textContent = hour;
+    timeCell.style.fontWeight = 'bold'; // Set font style to bold
     row.appendChild(timeCell);
 
     const tempCell = document.createElement('td');
     tempCell.textContent = temperature + '°C'; // Temperature without decimal
+    
     row.appendChild(tempCell);
 
     const windCell = document.createElement('td');
     windCell.textContent = windSpeed + ' m/s';
+    
     row.appendChild(windCell);
 
     const weatherCell = document.createElement('td');
@@ -441,17 +444,18 @@ function displayWeatherTable(data) {
       } else {
         iconSrc = 'assets/img/vejrikoner/skyet.png';
       }
-    } else if (weatherDescription.toLowerCase() === 'clear') {
+    } else if (weatherDescription.toLowerCase() === 'clear' || weatherDescription.toLowerCase() === 'clear sky') {
       iconSrc = 'assets/img/vejrikoner/sol.png';
     } else if (weatherDescription.toLowerCase() === 'snow') {
       iconSrc = 'assets/img/vejrikoner/sne.png';
     } else {
       // If the weather description is unknown, display a default icon
       iconSrc = 'assets/img/asshat.png';
+      console.log(`Unknown weather description: ${weatherDescription}`);
     }
 
     weatherIcon.src = iconSrc; // Set the image source for the weather icon
-    weatherIcon.style.width = '4%'; // Set the width to 10% of the original size
+    weatherIcon.style.width = '4%'; // Set the width to 4% of the original size
     weatherCell.appendChild(weatherIcon); // Add the weather icon to the cell
     row.appendChild(weatherCell);
 
@@ -461,8 +465,10 @@ function displayWeatherTable(data) {
 
   // Add the updated <tbody> to the table
   weatherTable.appendChild(tbody);
-}
 
+  // Apply additional styles to the table
+  weatherTable.style.borderCollapse = 'collapse'; // Add spacing between table cells
+}
 
 
 //------------------------------------------------------------------------------------------------------------------------weather table slut_______________________________
