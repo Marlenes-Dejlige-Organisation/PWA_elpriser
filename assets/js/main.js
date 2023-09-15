@@ -380,10 +380,10 @@ getLocation();
 // Function to display weather data in the table
 function displayWeatherTable(data) {
   const weatherTable = document.getElementById('weatherTable');
-  const tbody = weatherTable.querySelector('tbody');
+  const tbody = document.createElement('tbody'); // Opret en <tbody> til at indeholde rækkerne
 
   // Clear previous data
-  tbody.innerHTML = '';
+  weatherTable.innerHTML = ''; // Fjern alt indhold fra eksisterende <tbody>
 
   // Loop through data and create rows in the table
   data.forEach((forecast) => {
@@ -413,10 +413,14 @@ function displayWeatherTable(data) {
     weatherCell.textContent = weatherDescription;
     row.appendChild(weatherCell);
 
-    // Add the row to the table
+    // Add the row to the <tbody>
     tbody.appendChild(row);
   });
+
+  // Add the updated <tbody> to the table
+  weatherTable.appendChild(tbody);
 }
+
 
 
 //_______________________________________________________________________
