@@ -195,7 +195,7 @@ function getCurrentWeather() {
       const sunsetTime = new Date(sunsetTimestamp).toLocaleTimeString();
 
       // Display the weather data i konsol
-      console.log('Temperature:', temperature, 'C'); // Temperature in Celsius
+      console.log('Temperature:', temperature, 'C'); 
       console.log('Wind Speed:', windSpeed, 'm/s');
       console.log('Wind Speed (Beaufort):', beaufortScale);
       console.log('Wind Direction:', compassDirection);
@@ -221,9 +221,10 @@ function getCurrentWeather() {
       console.error("Error:", error);
     });
 }
+//-------------------------------------------------------------------------------------------------------------------------Current Weather slut_____________
 
 
-// Check if geolocation is available in the browser
+// ____________________________________________________________________________________Check if geolocation is available in the browser
 if ("geolocation" in navigator) {
   // Attempt to get the user's geolocation
   navigator.geolocation.getCurrentPosition(
@@ -258,7 +259,6 @@ if ("geolocation" in navigator) {
   // Call the getLocation function with the default latitude and longitude
   getLocation();
 }
-//-------------------------------------------------------------------------------------------------------------------------Current Weather slut_____________
 
 // _________________________________________________________________________________________________________________Fetch timeTable() ISSUE: 10_______________________________________________________________
 
