@@ -42,7 +42,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
             <p>Sunrise: ${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
             <p>Sunset: ${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
-            <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" /> <!-- Include the weather icon here -->
+            <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
         </div>
     `;
 
@@ -92,8 +92,7 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         let upcomingDaysWeatherHTML = '<h3>Upcoming Days Weather:</h3>';
 
         // Loop through the forecast data and display upcoming days
-        // You can adjust the number of days you want to display
-        const daysToDisplay = 5; // Adjust as needed
+        const daysToDisplay = 10;
 
         for (let i = 0; i < daysToDisplay; i++) {
             const forecast = forecastData.list[i];

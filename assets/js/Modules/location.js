@@ -1,5 +1,3 @@
-// location.js
-
 const apiKey = 'd2ff6a023f11473d9533c806b6da6aba'; // OpenCage API key
 
 export async function geocodeCity(cityName) {

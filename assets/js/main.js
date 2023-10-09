@@ -1,5 +1,3 @@
-// script.js
-
 import { fetchWeatherData, fetchWeatherForecast } from './Modules/weather.js';
 import { displayWeatherInfo, displayUpcomingWeather, displayUpcomingDaysWeather } from './Modules/ui.js';
 import { geocodeCity } from './Modules/location.js';
@@ -47,7 +45,6 @@ async function fetchWeatherDataByCoordinates(lat, lon) {
     console.error('Error fetching weather data:', error);
   }
 }
-
 
 // Check if the app has the user's location permission and get weather data
 document.addEventListener('DOMContentLoaded', async () => {

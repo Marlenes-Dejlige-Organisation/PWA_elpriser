@@ -1,2 +1,0 @@
-const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8'; // OpenWeatherMap API key
-const geocodingApiKey = 'd2ff6a023f11473d9533c806b6da6aba'; // Opencagedata API key
