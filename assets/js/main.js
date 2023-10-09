@@ -1,23 +1,76 @@
-// Import modules
-import { displayLocation } from './Modules/location.js';
-import { displayCurrentWeather } from './Modules/weather.js';
-// import { displayUpcomingWeather } from './Modules/upcomingWeather.js';
+// script.js
 
-// Function to initialize the application
-async function init() {
+import { fetchWeatherData, fetchWeatherForecast } from './Modules/weather.js';
+import { displayWeatherInfo, displayUpcomingWeather, displayUpcomingDaysWeather } from './Modules/ui.js';
+import { geocodeCity } from './Modules/location.js';
+
+const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8'; // OpenWeatherMap API key
+const geocodingApiKey = 'd2ff6a023f11473d9533c806b6da6aba'; // Opencagedata API key
+
+// Function to get the user's current location
+function getCurrentLocation() {
+  return new Promise((resolve, reject) => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          console.log('Got user location:', { lat: latitude, lon: longitude });
+          resolve({ lat: latitude, lon: longitude });
+        },
+        error => {
+          console.error('Error getting user location:', error);
+          reject(error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not available in this browser.');
+      reject(new Error('Geolocation is not available in this browser.'));
+    }
+  });
+}
+
+async function fetchWeatherDataByCoordinates(lat, lon) {
+  try {
+    const weatherData = await fetchWeatherData(lat, lon, apiKey);
+    console.log('Fetched weather data:', weatherData);
+
+    // Call displayWeatherInfo and store the returned icon URL
+    const weatherIconSrc = displayWeatherInfo(weatherData, weatherData.weather[0].description);
+
+    // Fetch and display the forecast data, passing the icon URL
+    const forecastData = await fetchWeatherForecast(lat, lon, apiKey);
+    console.log('Fetched forecast data:', forecastData);
+    displayUpcomingWeather(forecastData, weatherIconSrc); // Display upcoming weather
+    displayUpcomingDaysWeather(forecastData, weatherIconSrc); // Display upcoming days weather
+
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+  }
+}
+
+
+// Check if the app has the user's location permission and get weather data
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const coordinates = await getCurrentLocation();
+    console.log('Coordinates:', coordinates);
+    fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle error or show a message to the user
+  }
+});
+
+// Add event listener for the search button as before
+document.getElementById('searchButton').addEventListener('click', async () => {
+  const cityName = document.getElementById('cityInput').value.trim();
+  if (cityName !== '') {
     try {
-      // Display the user's location
-      await displayLocation();
-  
-      // Display the current weather
-      await displayCurrentWeather();
-  
-      // Display upcoming weather for the next seven days
-      // displayUpcomingWeather();
+      const coordinates = await geocodeCity(cityName, geocodingApiKey);
+      console.log('Coordinates:', coordinates);
+      fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   }
-  
-  // Call the init function when the page loads
-  window.addEventListener('load', init);
+});
