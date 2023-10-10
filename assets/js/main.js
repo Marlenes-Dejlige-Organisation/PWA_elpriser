@@ -30,14 +30,17 @@ async function fetchWeatherDataByCoordinates(lat, lon) {
   try {
     const weatherData = await fetchWeatherData(lat, lon, apiKey);
 
-    // Call displayWeatherInfo and store the returned icon URL
-    const weatherIconSrc = displayWeatherInfo(weatherData, weatherData.weather[0].description);
+    if (weatherData) {
+      // Call displayWeatherInfo and store the returned icon URL
+      const weatherIconSrc = displayWeatherInfo(weatherData, weatherData.weather[0].description);
 
-    // Fetch and display the forecast data, passing the icon URL
-    const forecastData = await fetchWeatherForecast(lat, lon, apiKey);
-    displayUpcomingWeather(forecastData, weatherIconSrc); // Display upcoming weather
-    displayUpcomingDaysWeather(forecastData, weatherIconSrc); // Display upcoming days weather
-
+      // Fetch and display the forecast data, passing the icon URL
+      const forecastData = await fetchWeatherForecast(lat, lon, apiKey);
+      displayUpcomingWeather(forecastData, weatherIconSrc); // Display upcoming weather
+      displayUpcomingDaysWeather(forecastData, weatherIconSrc); // Display upcoming days weather
+    } else {
+      console.error('Weather data not available.');
+    }
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
