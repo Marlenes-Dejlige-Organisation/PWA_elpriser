@@ -37,7 +37,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         iconSrc = 'assets/img/asshat.png';
         console.log(`Unknown weather description: ${weatherDescription}`);
     }
-
+    
     weatherInfo.innerHTML = `
         <div class="weatherInfo">
         <p>Date: ${year}-${month}-${day}</p>
