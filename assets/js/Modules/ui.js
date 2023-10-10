@@ -39,7 +39,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         <div class="weatherInfo">
             <h2>Weather in ${weatherData.name}, ${weatherData.sys.country}</h2>
             <p>Date: ${year}-${month}-${day}</p>
-            <p>Temperature: ${weatherData.main.temp}°C</p>
+            <p>Temperature: ${weatherData.main.temp.toFixed(1)}°C</p>
             <p>Sunrise: ${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
             <p>Sunset: ${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
             <img src="${windDirectionIcon}" alt="windDirection" />
