@@ -50,3 +50,37 @@ body::-webkit-scrollbar {
     width: 1.2%;
     margin-left: 1%;
 }
+
+/* Data + Sunrise/sunset */
+
+.topInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 20px;
+}
+
+.topLeft{
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.topRight{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
+}
+
+.date{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sunriseIcon{
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+}
+
+.sunTime{
+    opacity: 50%;
+}

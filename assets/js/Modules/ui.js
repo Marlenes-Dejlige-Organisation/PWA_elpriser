@@ -38,13 +38,25 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         console.log(`Unknown weather description: ${weatherDescription}`);
     }
 
+    const sunIcon = 'assets/img/symboler/sol_opogned_ikon.png';
     weatherInfo.innerHTML = `
         <div class="weatherInfo">
-        <p>Date: ${year}-${month}-${day}</p>
+            <div class="topInfo">
+                <div class="topLeft">
+                    <p class="date">${year}-${month}-${day}</p>
+                </div>
+                <div class="topRight">
+                    <div class="sunriseIcon">
+                        <img src="${sunIcon}">
+                    </div>
+                    <div class="sunTime">
+                        <p>${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
+                        <p>${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
+                    </div>
+                </div>
+            </div>
             <h2>Weather in ${weatherData.name}, ${weatherData.sys.country}</h2>
             <p>Temperature: ${weatherData.main.temp.toFixed(1)}°C</p>
-            <p>Sunrise: ${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
-            <p>Sunset: ${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
             <img src="${windDirectionIcon}" alt="windDirection" style="width:5%";/>
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
