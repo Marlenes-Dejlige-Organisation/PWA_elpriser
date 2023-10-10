@@ -42,7 +42,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
             <p>Temperature: ${weatherData.main.temp.toFixed(1)}°C</p>
             <p>Sunrise: ${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
             <p>Sunset: ${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
-            <img src="${windDirectionIcon}" alt="windDirection" />
+            <img src="${windDirectionIcon}" alt="windDirection" style="width:5%";/>
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
         </div>
