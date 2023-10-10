@@ -25,10 +25,12 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
 
     // Get wind direction as compass direction
     const windDirection = degreesToCompass(weatherData.wind.deg);
+    const windDirectionDegrees = weatherData.wind.deg;
 
     const windDirectionIcon = 'assets/img/symboler/vind2.png';
     // Determine the weather icon based on weatherDescription
     let iconSrc;
+    
 
     if (weatherIconMapping[weatherDescription.toLowerCase()]) {
         iconSrc = weatherIconMapping[weatherDescription.toLowerCase()];
@@ -37,8 +39,9 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         iconSrc = 'assets/img/asshat.png';
         console.log(`Unknown weather description: ${weatherDescription}`);
     }
-
+  
     const sunIcon = 'assets/img/symboler/sol_opogned_ikon.png';
+  
     weatherInfo.innerHTML = `
         <div class="weatherInfo">
             <div class="topInfo">
@@ -57,7 +60,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
             </div>
             <h2>Weather in ${weatherData.name}, ${weatherData.sys.country}</h2>
             <p>Temperature: ${weatherData.main.temp.toFixed(1)}°C</p>
-            <img src="${windDirectionIcon}" alt="windDirection" style="width:5%";/>
+            <img src="${windDirectionIcon}" alt="windDirection" style="width: 5%; transform: rotate(${windDirectionDegrees}deg);">
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
         </div>
