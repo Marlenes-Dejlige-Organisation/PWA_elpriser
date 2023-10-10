@@ -12,7 +12,6 @@ function getCurrentLocation() {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-          console.log('Got user location:', { lat: latitude, lon: longitude });
           resolve({ lat: latitude, lon: longitude });
         },
         error => {
@@ -30,14 +29,12 @@ function getCurrentLocation() {
 async function fetchWeatherDataByCoordinates(lat, lon) {
   try {
     const weatherData = await fetchWeatherData(lat, lon, apiKey);
-    console.log('Fetched weather data:', weatherData);
 
     // Call displayWeatherInfo and store the returned icon URL
     const weatherIconSrc = displayWeatherInfo(weatherData, weatherData.weather[0].description);
 
     // Fetch and display the forecast data, passing the icon URL
     const forecastData = await fetchWeatherForecast(lat, lon, apiKey);
-    console.log('Fetched forecast data:', forecastData);
     displayUpcomingWeather(forecastData, weatherIconSrc); // Display upcoming weather
     displayUpcomingDaysWeather(forecastData, weatherIconSrc); // Display upcoming days weather
 
@@ -50,7 +47,6 @@ async function fetchWeatherDataByCoordinates(lat, lon) {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const coordinates = await getCurrentLocation();
-    console.log('Coordinates:', coordinates);
     fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
   } catch (error) {
     console.error('Error:', error);
@@ -58,13 +54,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// Add event listener for the search button as before
+// Add event listener for the search button
 document.getElementById('searchButton').addEventListener('click', async () => {
   const cityName = document.getElementById('cityInput').value.trim();
   if (cityName !== '') {
     try {
       const coordinates = await geocodeCity(cityName, geocodingApiKey);
-      console.log('Coordinates:', coordinates);
       fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
     } catch (error) {
       console.error('Error:', error);

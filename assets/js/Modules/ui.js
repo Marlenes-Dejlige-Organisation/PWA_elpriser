@@ -13,6 +13,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     // Get wind direction as compass direction
     const windDirection = degreesToCompass(weatherData.wind.deg);
 
+    const windDirectionIcon = 'assets/img/symboler/vind2.png';
     // Determine the weather icon based on weatherDescription
     let iconSrc;
 
@@ -41,6 +42,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
             <p>Temperature: ${weatherData.main.temp}°C</p>
             <p>Sunrise: ${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
             <p>Sunset: ${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
+            <img src="${windDirectionIcon}" alt="windDirection" />
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
         </div>
@@ -82,7 +84,6 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
     }
 }
 
-// UPCOMING DAYS
 export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
     const upcomingDaysWeather = document.getElementById('upcomingDaysWeather');
 
@@ -91,25 +92,42 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         // Initialize the HTML content with the title
         let upcomingDaysWeatherHTML = '<h3>Upcoming Days Weather:</h3>';
 
+        // Define an array of day names
+        const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
         // Loop through the forecast data and display upcoming days
-        const daysToDisplay = 10;
+        const daysToDisplay = 5;
+        const displayedDays = {}; // To keep track of displayed days
 
-        for (let i = 0; i < daysToDisplay; i++) {
+        for (let i = 0; i < forecastData.list.length; i++) {
             const forecast = forecastData.list[i];
-            const forecastDate = new Date(forecast.dt * 1000).toLocaleDateString();
-            const forecastTemperature = forecast.main.temp.toFixed(1);
+            const forecastDate = new Date(forecast.dt * 1000);
+            const dayName = dayNames[forecastDate.getDay()];
 
-            // Create the HTML for the forecast entry
-            const forecastEntryHTML = `
-                <div class="upcomingDays">
-                    <h4>${forecastDate}</h4>
-                    <p>Temperature: ${forecastTemperature}°C</p>
-                    <img src="${weatherIconSrc}" alt="${forecast.weather[0].description}" class="upcoming-days-weather-icon">
-                </div>
-            `;
+            // Check if this day has already been displayed
+            if (!displayedDays[dayName]) {
+                const forecastTemperature = forecast.main.temp.toFixed(1);
 
-            // Append the forecast entry HTML to the upcomingDaysWeatherHTML
-            upcomingDaysWeatherHTML += forecastEntryHTML;
+                // Create the HTML for the forecast entry
+                const forecastEntryHTML = `
+                    <div class="upcomingDays">
+                        <h4>${dayName}</h4>
+                        <p>Temperature: ${forecastTemperature}°C</p>
+                        <img src="${weatherIconSrc}" alt="${forecast.weather[0].description}" class="upcoming-days-weather-icon">
+                    </div>
+                `;
+
+                // Append the forecast entry HTML to the upcomingDaysWeatherHTML
+                upcomingDaysWeatherHTML += forecastEntryHTML;
+
+                // Mark this day as displayed
+                displayedDays[dayName] = true;
+            }
+
+            // Exit the loop when we have displayed the required number of days
+            if (Object.keys(displayedDays).length === daysToDisplay) {
+                break;
+            }
         }
 
         // Set the entire HTML content to the upcomingDaysWeather element
