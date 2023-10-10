@@ -50,3 +50,35 @@ body::-webkit-scrollbar {
     width: 1.2%;
     margin-left: 1%;
 }
+
+.topInfo{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.topLeft{
+    margin-top: 40px;
+    margin-left: 30px;
+}
+
+.date{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.topRight{
+    display: flex;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.sunriseIcon{
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+}
+
+.sunTime{
+    opacity: 50%;
+}
