@@ -1,5 +1,18 @@
 import { degreesToCompass } from "./utils.js";
 
+// Define a mapping of weather descriptions to icon URLs
+const weatherIconMapping = {
+    'clear sky': 'assets/img/vejrikoner/sol.png',
+    'few clouds': 'assets/img/vejrikoner/letskyet.png',
+    'scattered clouds': 'assets/img/vejrikoner/skyet.png',
+    'broken clouds': 'assets/img/vejrikoner/skyet.png',
+    'overcast clouds': 'assets/img/vejrikoner/skyet.png',
+    'light rain': 'assets/img/vejrikoner/Regn.png',
+    'moderate rain': 'assets/img/vejrikoner/Regn.png',
+    'snow': 'assets/img/vejrikoner/sne.png',
+    'default': 'assets/img/asshat.png' // Default icon for unknown weather conditions
+};
+
 // CURRENT WEATHER
 export function displayWeatherInfo(weatherData, weatherDescription) {
     const weatherInfo = document.getElementById('weatherInfo');
@@ -17,18 +30,8 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     // Determine the weather icon based on weatherDescription
     let iconSrc;
 
-    if (weatherDescription.toLowerCase().includes('rain')) {
-        iconSrc = 'assets/img/vejrikoner/Regn.png';
-    } else if (weatherDescription.toLowerCase().includes('clouds')) {
-        if (weatherDescription.toLowerCase().includes('few clouds') || weatherDescription.toLowerCase().includes('broken clouds')) {
-            iconSrc = 'assets/img/vejrikoner/letskyet.png';
-        } else {
-            iconSrc = 'assets/img/vejrikoner/skyet.png';
-        }
-    } else if (weatherDescription.toLowerCase() === 'clear' || weatherDescription.toLowerCase() === 'clear sky') {
-        iconSrc = 'assets/img/vejrikoner/sol.png';
-    } else if (weatherDescription.toLowerCase() === 'snow') {
-        iconSrc = 'assets/img/vejrikoner/sne.png';
+    if (weatherIconMapping[weatherDescription.toLowerCase()]) {
+        iconSrc = weatherIconMapping[weatherDescription.toLowerCase()];
     } else {
         // If the weather description is unknown, display a default icon
         iconSrc = 'assets/img/asshat.png';
@@ -65,12 +68,16 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
         for (const forecast of forecastData.list) {
             const forecastTime = new Date(forecast.dt * 1000).toLocaleTimeString();
             const forecastTemperature = forecast.main.temp.toFixed(1);
+            const forecastWeatherDescription = forecast.weather[0].description.toLowerCase(); // Convert to lowercase
+
+            // Determine the weather icon source based on forecastWeatherDescription
+            const weatherIconSrc = weatherIconMapping[forecastWeatherDescription] || weatherIconMapping.default;
 
             upcomingWeatherHTML += `
-                <div class="upcomingHours">
-                    <p>${forecastTime}: ${forecastTemperature}°C</p>
-                    <img src="${weatherIconSrc}" alt="${forecast.weather[0].description}" class="upcoming-weather-icon">
-                </div>`;
+            <div class="upcomingHours">
+                <p>${forecastTime}: ${forecastTemperature}°C</p>
+                <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-weather-icon">
+            </div>`;
         }
 
         upcomingWeatherHTML += `
@@ -84,6 +91,7 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
     }
 }
 
+// UPCOMING DAYS WEATHER
 export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
     const upcomingDaysWeather = document.getElementById('upcomingDaysWeather');
 
@@ -99,36 +107,41 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         const daysToDisplay = 5;
         const displayedDays = {}; // To keep track of displayed days
 
-        for (let i = 0; i < forecastData.list.length; i++) {
-            const forecast = forecastData.list[i];
-            const forecastDate = new Date(forecast.dt * 1000);
-            const dayName = dayNames[forecastDate.getDay()];
+        // Loop through the forecast data and display upcoming days
+for (let i = 0; i < forecastData.list.length; i++) {
+    const forecast = forecastData.list[i];
+    const forecastDate = new Date(forecast.dt * 1000);
+    const dayName = dayNames[forecastDate.getDay()];
 
-            // Check if this day has already been displayed
-            if (!displayedDays[dayName]) {
-                const forecastTemperature = forecast.main.temp.toFixed(1);
+    // Check if this day has already been displayed
+    if (!displayedDays[dayName]) {
+        const forecastTemperature = forecast.main.temp.toFixed(1);
+        const forecastWeatherDescription = forecast.weather[0].description.toLowerCase(); // Convert to lowercase
 
-                // Create the HTML for the forecast entry
-                const forecastEntryHTML = `
-                    <div class="upcomingDays">
-                        <h4>${dayName}</h4>
-                        <p>Temperature: ${forecastTemperature}°C</p>
-                        <img src="${weatherIconSrc}" alt="${forecast.weather[0].description}" class="upcoming-days-weather-icon">
-                    </div>
-                `;
+        // Determine the weather icon source based on forecastWeatherDescription
+        const weatherIconSrc = weatherIconMapping[forecastWeatherDescription] || weatherIconMapping.default;
 
-                // Append the forecast entry HTML to the upcomingDaysWeatherHTML
-                upcomingDaysWeatherHTML += forecastEntryHTML;
+        // Create the HTML for the forecast entry
+        const forecastEntryHTML = `
+            <div class="upcomingDays">
+                <h4>${dayName}</h4>
+                <p>Temperature: ${forecastTemperature}°C</p>
+                <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon">
+            </div>
+        `;
 
-                // Mark this day as displayed
-                displayedDays[dayName] = true;
-            }
+        // Append the forecast entry HTML to the upcomingDaysWeatherHTML
+        upcomingDaysWeatherHTML += forecastEntryHTML;
 
-            // Exit the loop when we have displayed the required number of days
-            if (Object.keys(displayedDays).length === daysToDisplay) {
-                break;
-            }
-        }
+        // Mark this day as displayed
+        displayedDays[dayName] = true;
+    }
+
+    // Exit the loop when we have displayed the required number of days
+    if (Object.keys(displayedDays).length === daysToDisplay) {
+        break;
+    }
+}
 
         // Set the entire HTML content to the upcomingDaysWeather element
         upcomingDaysWeather.innerHTML = upcomingDaysWeatherHTML;
