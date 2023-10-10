@@ -1,3 +1,7 @@
+/* Import */
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+/* Styling */
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +9,8 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', sans-serif;
+    color: white;
 }
 
 body::-webkit-scrollbar {
