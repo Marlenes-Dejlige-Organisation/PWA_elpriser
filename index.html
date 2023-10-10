@@ -4,17 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boiler Plate</title>
-    <script src="assets\js\main.js"defer></script>
-
-
-    <script src="assets/js/loadingScreen.js" defer></script>
-    
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/loadingScreen.css">
-
+    <title>Weather App</title>
     <link rel="icon" href="assets/img/favicon_io/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- MAIN STYLESHEET -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- MAIN JS -->
+    <script type="module" src="assets/js/main.js"></script>
+    <!-- LOADING SCREEN -->
+    <script src="assets/js/loadingScreen.js" defer></script>
+    <link rel="stylesheet" href="assets/css/loadingScreen.css">
 </head>
 
 <body>
@@ -23,19 +21,12 @@
             <img src="assets/img/asshat.png" alt="Logo">
         </div>
     </div>
-    
-    <div id="date"></div>
-    <div id="sunrise"></div>
-    <div id="vejrtype"></div>
-    <div id="temp"></div>
-    <div id="wind"></div>
-    <div id="currentDayTimeTable"></div>
-    <table id="weatherTable"></table>
-    <div id="clickedDayTimeTable"></div>
-    <div id="upcomingDays"></div>
-    <div>
-        <input type="text" id="cityInput" placeholder="Enter City Name">
+    <div class="container">
+        <input type="text" id="cityInput" placeholder="Enter city">
         <button id="searchButton">Search</button>
+        <div id="weatherInfo"></div>
+        <div id="upcomingWeather"></div>
+        <div id="upcomingDaysWeather"></div>
     </div>
 </body>
 </html>

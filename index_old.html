@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boiler Plate</title>
+    <script src="assets\js\main-outdated.js" defer></script>
+    <script type="module" src="assets/js/main.js"></script>
+
+
+    <script src="assets/js/loadingScreen.js" defer></script>
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loadingScreen.css">
+
+    <link rel="icon" href="assets/img/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="loading-screen">
+        <div class="loader">
+            <img src="assets/img/asshat.png" alt="Logo">
+        </div>
+    </div>
+    
+    <div id="date"></div>
+    <div id="sunrise"></div>
+    <div id="vejrtype"></div>
+    <div id="temp"></div>
+    <div id="wind"></div>
+    <div id="currentDayTimeTable"></div>
+    <table id="weatherTable"></table>
+    <div id="clickedDayTimeTable"></div>
+    <div id="upcomingDays"></div>
+    <div>
+        <input type="text" id="cityInput" placeholder="Enter City Name">
+        <button id="searchButton">Search</button>
+    </div>
+</body>
+</html>
