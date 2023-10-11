@@ -122,7 +122,7 @@ body::-webkit-scrollbar {
 }
 
 #searchButton{
-    position:absolute;
+    position: absolute;
     top: 0;
     right: 0;
     background-image: url('../img/symboler/søge_ikon.png'); 
