@@ -2,7 +2,7 @@
 
 import { fetchWeatherData, fetchWeatherForecast } from './Modules/weather.js';
 import { displayWeatherInfo, displayUpcomingWeather, displayUpcomingDaysWeather } from './Modules/ui.js';
-import { geocodeCity } from './Modules/location.js';
+import { geocodeCity, reverseGeocode } from './Modules/location.js';
 
 const apiKey = '1c8284d2cba51f9f680a3c09e5602ea8'; // OpenWeatherMap API key
 const geocodingApiKey = 'AIzaSyA_UkKyRKopA1AB4chC_rPCnWoqS3pNKuo'; // Opencagedata API key
@@ -56,24 +56,50 @@ async function fetchWeatherDataByCoordinates(lat, lon) {
   }
 }
 
+// Function to update the search bar with the user's current location
+function updateSearchBarWithLocation(locationData) {
+  const cityInput = document.getElementById('cityInput');
+  cityInput.value = `${locationData.city}`;
+}
+
 // Check if the app has the user's location permission and get weather data
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const coordinates = await getCurrentLocation();
-    fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
+    
+    if (coordinates) {
+      const reverseGeocodingResult = await reverseGeocode(coordinates.lat, coordinates.lon, geocodingApiKey);
+      
+      if (reverseGeocodingResult) {
+        updateSearchBarWithLocation(reverseGeocodingResult);
+        fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
+      } else {
+        console.error('Reverse geocoding failed.');
+        // Handle the case when reverse geocoding fails (fallback or user message)
+      }
+    } else {
+      console.error('User location cannot be determined.');
+      // Handle the case when user location can't be determined (fallback or user message)
+    }
   } catch (error) {
     console.error('Error:', error);
-    // Handle error or show a message to the user
+    // Handle other errors as needed
   }
 });
 
-// Add event listener for the search button
+// Modify the search button click event listener to use geocodeCity
 document.getElementById('searchButton').addEventListener('click', async () => {
   const cityName = document.getElementById('cityInput').value.trim();
   if (cityName !== '') {
     try {
       const coordinates = await geocodeCity(cityName, geocodingApiKey);
-      fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
+      if (coordinates) {
+        updateSearchBarWithLocation({ city: cityName, country: 'Unknown' });
+        fetchWeatherDataByCoordinates(coordinates.lat, coordinates.lon);
+      } else {
+        console.error('Geocoding failed.');
+        // Handle the case when geocoding fails (fallback or user message)
+      }
     } catch (error) {
       console.error('Error:', error);
     }

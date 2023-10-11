@@ -1,37 +1,66 @@
-// location.js
+const geocodingApiKey = 'YourGeocodingApiKey';
 
-const apiKey = 'AIzaSyA_UkKyRKopA1AB4chC_rPCnWoqS3pNKuo'; // Replace with your Google Geocoding API key
+export async function geocodeCity(cityName, apiKey) {
+  const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(cityName)}&key=${apiKey}`;
 
-export async function geocodeCity(cityName) {
-   const encodedCityName = encodeURIComponent(cityName); // Encode the city name for use in the URL
-   const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedCityName}&key=${apiKey}`;
-   
-   // Log the constructed URL before making the fetch request
-   console.log('Geocoding API URL:', apiUrl);
+  try {
+    const response = await fetch(apiUrl);
 
-   try {
-       const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error('Geocoding failed');
+    }
 
-       if (!response.ok) {
-           throw new Error('City not found');
-       }
+    const data = await response.json();
 
-       const data = await response.json();
+    if (data.status !== 'OK' || data.results.length === 0) {
+      console.error('Geocoding failed. No results found.');
+      return null;
+    }
 
-       if (data.status !== 'OK' || data.results.length === 0) {
-           // Log the response to examine its content
-           console.log('Geocoding API Response:', data);
-           throw new Error('City not found');
-       }
+    // Extract the location coordinates from the response
+    const location = data.results[0].geometry.location;
 
-       const location = data.results[0].geometry.location;
-       const coordinates = {
-           lat: location.lat,
-           lon: location.lng
-       };
+    // Return the coordinates (latitude and longitude)
+    return { lat: location.lat, lon: location.lng };
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    return null;
+  }
+}
 
-       return coordinates;
-   } catch (error) {
-       throw error;
-   }
+export async function reverseGeocode(lat, lon, apiKey) {
+  const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&key=${apiKey}`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error('Reverse geocoding failed');
+    }
+
+    const data = await response.json();
+
+    if (data.status !== 'OK' || data.results.length === 0) {
+      console.error('Reverse geocoding failed. No results found.');
+      return null;
+    }
+
+    // Extract city and country information from the response
+    const results = data.results[0].address_components;
+    let city = '';
+    let country = '';
+
+    for (const component of results) {
+      if (component.types.includes('locality')) {
+        city = component.long_name;
+      } else if (component.types.includes('country')) {
+        country = component.long_name;
+      }
+    }
+
+    return { city, country };
+  } catch (error) {
+    console.error('Reverse geocoding error:', error);
+    return null;
+  }
 }
