@@ -30,7 +30,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     const windDirectionIcon = 'assets/img/symboler/vind2.png';
     // Determine the weather icon based on weatherDescription
     let iconSrc;
-
+    
 
     if (weatherIconMapping[weatherDescription.toLowerCase()]) {
         iconSrc = weatherIconMapping[weatherDescription.toLowerCase()];
@@ -39,9 +39,9 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         iconSrc = 'assets/img/asshat.png';
         console.log(`Unknown weather description: ${weatherDescription}`);
     }
-
+  
     const sunIcon = 'assets/img/symboler/sol_opogned_ikon.png';
-
+  
     weatherInfo.innerHTML = `
         <div class="weatherInfo">
             <div class="topInfo">
@@ -121,9 +121,7 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         // Loop through the forecast data and display upcoming days
         const daysToDisplay = 5;
         const displayedDays = {}; // To keep track of displayed days
-        let upcomingDays = `
-        <div class="upcomingDays-container">
-        `
+
         // Loop through the forecast data and display upcoming days
 for (let i = 0; i < forecastData.list.length; i++) {
     const forecast = forecastData.list[i];
@@ -153,16 +151,16 @@ for (let i = 0; i < forecastData.list.length; i++) {
         // Mark this day as displayed
         displayedDays[dayName] = true;
     }
-    upcomingDays += `</div>`
-        // Exit the loop when we have displayed the required number of days
-        if (Object.keys(displayedDays).length === daysToDisplay) {
-            break;
-        }
-    }
 
-    // Set the entire HTML content to the upcomingDaysWeather element
-    upcomingDaysWeather.innerHTML = upcomingDaysWeatherHTML;
-} else {
-    console.error("Element with ID 'upcomingDaysWeather' not found.");
+    // Exit the loop when we have displayed the required number of days
+    if (Object.keys(displayedDays).length === daysToDisplay) {
+        break;
+    }
 }
+
+        // Set the entire HTML content to the upcomingDaysWeather element
+        upcomingDaysWeather.innerHTML = upcomingDaysWeatherHTML;
+    } else {
+        console.error("Element with ID 'upcomingDaysWeather' not found.");
+    }
 }
