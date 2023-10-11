@@ -76,22 +76,29 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
     // Check if the 'upcomingWeather' element exists
     if (upcomingWeather) {
         let upcomingWeatherHTML = `
-            <h3>Upcoming Weather:</h3>
             <div>`;
 
         // Loop through the forecast data and construct the content
         for (const forecast of forecastData.list) {
-            const forecastTime = new Date(forecast.dt * 1000).toLocaleTimeString();
-            const forecastTemperature = forecast.main.temp.toFixed(1);
+            const forecastTime = new Date(forecast.dt * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+            const forecastTemperature = forecast.main.temp.toFixed(0); // Rundet til nærmeste heltal
             const forecastWeatherDescription = forecast.weather[0].description.toLowerCase(); // Convert to lowercase
+            const forecastWindSpeed = forecast.wind.speed.toFixed(0); // Vindhastighed uden decimaler
+            const forecastWindDirectionDegrees = forecast.wind.deg; // Vindretning i grader
 
             // Determine the weather icon source based on forecastWeatherDescription
             const weatherIconSrc = weatherIconMapping[forecastWeatherDescription] || weatherIconMapping.default;
 
+            // Vejrikon for vindhastighed
+            const windIcon = 'assets/img/symboler/vind3.png';
+
             upcomingWeatherHTML += `
-            <div class="upcomingHours">
-                <p>${forecastTime}: ${forecastTemperature}°C</p>
+            <div class="upcomingHours time-divider">
+                <p>${forecastTime}</p>
                 <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-weather-icon">
+                <p>${forecastTemperature}°C</p>
+                <img src="${windIcon}" alt="windIcon" style="transform: rotate(${forecastWindDirectionDegrees}deg);"> <!-- Vejrikon for vindhastighed -->
+                <p>${forecastWindSpeed}</p> <!-- Vindhastighed uden decimaler -->
             </div>`;
         }
 
@@ -105,6 +112,12 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
         console.error("Element with ID 'upcomingWeather' not found.");
     }
 }
+
+
+
+
+
+
 
 // UPCOMING DAYS WEATHER
 export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
