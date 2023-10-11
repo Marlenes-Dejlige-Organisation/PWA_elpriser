@@ -11,19 +11,36 @@
 body {
     font-family: 'Roboto Condensed', sans-serif;
     color: white;
-    background-color: grey;
 }
 
 body::-webkit-scrollbar {
     display: none;
 }
 
-.container {
-    padding: 0 30px;
+/* Background colors based on weather conditions */
+.body-clear-sky {
+    background-color: #8E816F;
+    /* Full sun */
 }
 
-.weatherInfo {
-    background-color: grey;
+.body-rain {
+    background-color: #33313D;
+    /* Rain */
+}
+
+.body-cloudy {
+    background-color: #A4C6C9;
+    /* Cloudy */
+}
+
+.body-default {
+    background-color: #8E816F;
+    /* Default background color for unknown conditions */
+}
+
+
+.container {
+    padding: 0 30px;
 }
 
 .current-weather-icon {
@@ -54,32 +71,32 @@ body::-webkit-scrollbar {
     margin-left: 1%;
 }
 
-.topInfo{
+.topInfo {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
 
-.topLeft{
+.topLeft {
     margin-top: 40px;
 }
 
-.date{
+.date {
     font-size: 20px;
     font-weight: bold;
 }
 
-.topRight{
+.topRight {
     display: flex;
     margin-top: 30px;
 }
 
-.sunriseIcon{
+.sunriseIcon {
     display: flex;
     justify-content: right;
     margin-right: 10px;
 }
 
-.sunTime{
+.sunTime {
     opacity: 50%;
 }
