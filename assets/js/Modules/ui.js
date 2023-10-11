@@ -98,10 +98,16 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                     </div>
                 </div>
             </div>
-            <p>Temperature: ${weatherData.main.temp.toFixed(0)}°C</p>
-            <img src="${windDirectionIcon}" alt="windDirection" style="width: 5%; transform: rotate(${windDirectionDegrees}deg);">
-            <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
+            
+            <div class="imgTemp">
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
+            <p>${weatherData.main.temp.toFixed(0)}°C</p>
+            </div>
+            <div class="nu">
+            <h2>Vejret lige nu...</h2>
+            <div class="wendy">
+            <img src="${windDirectionIcon}" alt="windDirection" style=" transform: rotate(${windDirectionDegrees}deg);">
+            <p>${weatherData.wind.speed.toFixed(0)}</p></div></div>
         </div>
     `;
 
