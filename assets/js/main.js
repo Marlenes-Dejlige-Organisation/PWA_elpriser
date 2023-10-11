@@ -105,3 +105,20 @@ document.getElementById('searchButton').addEventListener('click', async () => {
     }
   }
 });
+
+const cityInput = document.getElementById('cityInput');
+const searchButton = document.getElementById('searchButton');
+
+// Add a click event listener to the input field to clear its content
+cityInput.addEventListener('click', function () {
+  // Clear the content of the input field
+  cityInput.value = '';
+});
+
+// Add a keypress event listener to the input field
+cityInput.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    // Trigger a click on the button when the "Enter" key is pressed
+    searchButton.click();
+  }
+});
