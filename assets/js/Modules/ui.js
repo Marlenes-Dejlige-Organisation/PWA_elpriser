@@ -75,7 +75,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                 </div>
             </div>
             <h2>Weather in ${weatherData.name}, ${weatherData.sys.country}</h2>
-            <p>Temperature: ${weatherData.main.temp.toFixed(1)}°C</p>
+            <p>Temperature: ${weatherData.main.temp.toFixed(0)}°C</p>
             <img src="${windDirectionIcon}" alt="windDirection" style="width: 5%; transform: rotate(${windDirectionDegrees}deg);">
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
             <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
@@ -98,7 +98,7 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
         // Loop through the forecast data and construct the content
         for (const forecast of forecastData.list) {
             const forecastTime = new Date(forecast.dt * 1000).toLocaleTimeString();
-            const forecastTemperature = forecast.main.temp.toFixed(1);
+            const forecastTemperature = forecast.main.temp.toFixed(0);
             const forecastWeatherDescription = forecast.weather[0].description.toLowerCase(); // Convert to lowercase
 
             // Determine the weather icon source based on forecastWeatherDescription
