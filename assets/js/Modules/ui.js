@@ -13,15 +13,31 @@ const weatherIconMapping = {
     'default': 'assets/img/asshat.png' // Default icon for unknown weather conditions
 };
 
+// Define an array of month names
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+const weekdayNames = [
+    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+];
+
+
 // CURRENT WEATHER
 export function displayWeatherInfo(weatherData, weatherDescription) {
     const weatherInfo = document.getElementById('weatherInfo');
     const currentDate = new Date();
 
-    // Get the current date components (numbers)
+    // Get the current date components
     const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1;
-    const year = currentDate.getFullYear();
+    const monthIndex = currentDate.getMonth();
+
+    // Get the month name
+    const monthName = monthNames[monthIndex];
+
+    // Get the day of the Week
+    const dayOfWeek = weekdayNames[currentDate.getDay()];
 
     // Get wind direction as compass direction
     const windDirection = degreesToCompass(weatherData.wind.deg);
@@ -46,7 +62,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         <div class="weatherInfo">
             <div class="topInfo">
                 <div class="topLeft">
-                    <p class="date">${year}-${month}-${day}</p>
+                    <p class="date">${day} ${monthName}. ${dayOfWeek}</p>
                 </div>
                 <div class="topRight">
                     <div class="sunriseIcon">
