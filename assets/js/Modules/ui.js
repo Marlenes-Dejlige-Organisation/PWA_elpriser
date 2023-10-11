@@ -39,6 +39,10 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     // Get the day of the Week
     const dayOfWeek = weekdayNames[currentDate.getDay()];
 
+    // Format sunrise and sunset times in 24-hour format
+    const sunriseTime = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false})
+    const sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false})
+
     // Get wind direction as compass direction
     const windDirection = degreesToCompass(weatherData.wind.deg);
     const windDirectionDegrees = weatherData.wind.deg;
@@ -69,12 +73,12 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                         <img src="${sunIcon}">
                     </div>
                     <div class="sunTime">
-                        <p>${new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString()}</p>
-                        <p>${new Date(weatherData.sys.sunset * 1000).toLocaleTimeString()}</p>
+                        <p>${sunriseTime}</p>
+                        <p>${sunsetTime}</p>
                     </div>
                 </div>
             </div>
-            <h2>Weather in ${weatherData.name}, ${weatherData.sys.country}</h2>
+            <h2>${weatherData.name}, ${weatherData.sys.country}</h2>
             <p>Temperature: ${weatherData.main.temp.toFixed(0)}°C</p>
             <img src="${windDirectionIcon}" alt="windDirection" style="width: 5%; transform: rotate(${windDirectionDegrees}deg);">
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
