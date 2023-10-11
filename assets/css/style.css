@@ -49,12 +49,61 @@ body::-webkit-scrollbar {
     width: 100px;
 }
 
-.upcomingHours {
-    display: flex;
-    align-items: center;
+#upcomingWeather {
+    background-color: #F3F1F0;
+    width: 500px;
+    border-radius: 8px;
+    margin: auto;
+    padding: 4rem;
+    font-size: 30px;
 }
 
+.upcomingHours {
+    display: flex;
+    justify-content: space-between; /* Tilføj space-between for at fordele elementerne jævnt */
+    text-align: center;
+    position: relative;
+}
+
+.upcomingHours p {
+    color: #33313D;
+    font-weight: bold;
+    
+}
+.upcomingHours p:nth-child(3) {
+    color: #A4C6C9;
+    font-weight: bold;
+    
+}
 .upcomingHours img {
+    width: 20%; /* Øg bredden til at fylde mere af bredden */
+    height: 10%;
+    margin: 5%;
+    position: relative;
+}
+
+.time-divider {
+    width: 100%;
+    border-top: 2px solid #161515;
+    margin: 0 auto;
+ 
+}
+
+/* Tilpasning til vindhastighed og ikon */
+.upcomingHours img:last-of-type {
+    width: 20%;
+    transform: translateY(-50%);
+    position: relative;
+    z-index: 1;
+}
+
+.upcomingHours p:last-of-type {
+    font-size: 20px;
+    position: absolute;
+    top: 36%;
+    left: 84.5%;
+    transform: translateX(-50%);
+    z-index: 2;
     width: 20px;
     margin-left: 1%;
 }
