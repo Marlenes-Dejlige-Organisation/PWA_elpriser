@@ -100,3 +100,37 @@ body::-webkit-scrollbar {
 .sunTime {
     opacity: 50%;
 }
+
+/* Search Bar */
+
+.searchBarContainer{
+    position: relative;
+    margin: 0 30px;
+    
+}
+
+.searchBar{
+    height: 30px;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    background-color: antiquewhite;
+}
+
+.searchBar:active{
+    outline: none;
+    border: none;
+}
+
+
+#searchButton{
+    position:absolute;
+    right: 0;
+    background-image: url('../img/symboler/søge_ikon.png'); 
+    background-color: transparent;
+    background-size: cover;
+    height: 100%;
+    width: 30px;  
+    border: 0;
+}
