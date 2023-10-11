@@ -1,3 +1,5 @@
+// ui.js
+
 import { degreesToCompass } from "./utils.js";
 
 // Define a mapping of weather descriptions to icon URLs
