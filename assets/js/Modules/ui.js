@@ -98,7 +98,6 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
     // Check if the 'upcomingDaysWeather' element exists
     if (upcomingDaysWeather) {
         // Initialize the HTML content with the title
-        let upcomingDaysWeatherHTML = '<h3>Upcoming Days Weather:</h3>';
 
         // Define an array of day names
         const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -107,6 +106,8 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         const daysToDisplay = 5;
         const displayedDays = {}; // To keep track of displayed days
 
+     
+        
         // Loop through the forecast data and display upcoming days
 for (let i = 0; i < forecastData.list.length; i++) {
     const forecast = forecastData.list[i];
@@ -122,16 +123,19 @@ for (let i = 0; i < forecastData.list.length; i++) {
         const weatherIconSrc = weatherIconMapping[forecastWeatherDescription] || weatherIconMapping.default;
 
         // Create the HTML for the forecast entry
-        const forecastEntryHTML = `
-            <div class="upcomingDays">
-                <h4>${dayName}</h4>
-                <p>Temperature: ${forecastTemperature}°C</p>
-                <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon">
-            </div>
-        `;
+        const container = document.createElement('div');
 
-        // Append the forecast entry HTML to the upcomingDaysWeatherHTML
-        upcomingDaysWeatherHTML += forecastEntryHTML;
+// Set the innerHTML of the container to your HTML template
+const forecastEntryHTML = `
+        <div class="upcomingDays">
+            <h4 class="upcomingDaysHeadline">${dayName}</h4>
+            <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon">
+            <p class="upcomingDaysTemp">Temperature: ${forecastTemperature}°C</p>
+        </div>
+`;
+
+
+
 
         // Mark this day as displayed
         displayedDays[dayName] = true;
@@ -143,8 +147,9 @@ for (let i = 0; i < forecastData.list.length; i++) {
     }
 }
 
-        // Set the entire HTML content to the upcomingDaysWeather element
-        upcomingDaysWeather.innerHTML = upcomingDaysWeatherHTML;
+
+
+       
     } else {
         console.error("Element with ID 'upcomingDaysWeather' not found.");
     }
