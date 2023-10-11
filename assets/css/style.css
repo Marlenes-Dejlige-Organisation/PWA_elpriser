@@ -61,6 +61,7 @@ body::-webkit-scrollbar {
 .upcomingHours {
     display: flex;
     justify-content: space-between; /* Tilføj space-between for at fordele elementerne jævnt */
+    align-items: center;
     text-align: center;
     position: relative;
 }
