@@ -108,6 +108,8 @@ body::-webkit-scrollbar {
 .searchBarContainer{
     position: relative;
     margin: 0 30px;
+    margin-top: 30px;
+    margin-bottom: 40px;
     
 }
 
@@ -120,14 +122,9 @@ body::-webkit-scrollbar {
     background-color: antiquewhite;
 }
 
-.searchBar:active{
-    outline: none;
-    border: none;
-}
-
-
 #searchButton{
     position:absolute;
+    top: 0;
     right: 0;
     background-image: url('../img/symboler/søge_ikon.png'); 
     background-color: transparent;
