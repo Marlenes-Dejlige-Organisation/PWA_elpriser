@@ -98,7 +98,6 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                     </div>
                 </div>
             </div>
-            <h2>${weatherData.name}, ${weatherData.sys.country}</h2>
             <p>Temperature: ${weatherData.main.temp.toFixed(0)}°C</p>
             <img src="${windDirectionIcon}" alt="windDirection" style="width: 5%; transform: rotate(${windDirectionDegrees}deg);">
             <p>Wind: ${weatherData.wind.speed} m/s, ${windDirection}</p>
