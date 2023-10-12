@@ -286,21 +286,23 @@ body::-webkit-scrollbar {
 .searchBar {
     height: 30px;
     width: 100%;
-    padding: 10px;
+    padding: 2rem;
     border: 0;
     border-radius: 5px;
-    background-color: antiquewhite;
+    background-color: #F9F8F7;
+    -webkit-box-shadow: 0px 3px 8px -1px #000000; 
+box-shadow: 0px 3px 8px -1px #000000;
 }
 
 #searchButton {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 0.5rem;
+    right: 1rem;
     background-image: url('../img/symboler/søge_ikon.png');
     background-color: transparent;
     background-size: cover;
-    height: 100%;
-    width: 30px;
+    height: 70%;
+    width: 10%;
     border: 0;
     cursor: pointer;
 }
@@ -311,6 +313,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-wrap: nowrap;
     overflow: auto;
+    height: 60%;
 }
 
 .side-by-side-container::-webkit-scrollbar {
