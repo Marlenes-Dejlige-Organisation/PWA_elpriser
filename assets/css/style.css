@@ -79,6 +79,12 @@ body::-webkit-scrollbar {
     justify-content: space-between;
     margin: 2rem 0 2rem 0;
 }
+.decorative-line {
+    border-bottom: 3px solid #33313d; /* Juster farve og stregtype efter behov */
+    margin: 1rem 1rem; /* Juster margin efter behov */
+    border-radius: 30px;
+}
+
 
 .nu h2 {
     color: #8E816F;

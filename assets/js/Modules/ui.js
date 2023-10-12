@@ -29,12 +29,12 @@ const backgroundColorClasses = {
 
 // Define an array of month names
 const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "Januar", "Februar", "Marts", "April", "Maj", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "December"
 ];
 
 const weekdayNames = [
-    "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    "Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"
 ];
 
 
@@ -112,7 +112,9 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                 <img src="${windDirectionIcon}" alt="windDirection" style=" transform: rotate(${windDirectionDegrees}deg);">
                 <p>${weatherData.wind.speed.toFixed(0)}</p>
             </div>
+            
         </div>
+        <div class="decorative-line"></div>
     `;
 
     return iconSrc; // Return the weather icon URL
@@ -210,6 +212,7 @@ const forecastEntryHTML = `
             <h4 class="upcomingDaysHeadline">${dayName}</h4><br>
             <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon"><br>
             <p class="upcomingDaysTemp">${forecastTemperature}°C</p>
+            
         </div>
 `;
 
