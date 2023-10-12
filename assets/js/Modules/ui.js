@@ -175,7 +175,7 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
     // Check if the 'upcomingDaysWeather' element exists
     if (upcomingDaysWeather) {
         // Initialize the HTML content with the title
-        let upcomingDaysWeatherHTML = '<h3>Upcoming Days Weather:</h3>';
+        let upcomingDaysWeatherHTML = '';
 
         // Define an array of day names
         const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -184,11 +184,14 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         const daysToDisplay = 5;
         const displayedDays = {}; // To keep track of displayed days
 
+    
+        
         // Loop through the forecast data and display upcoming days
-        for (let i = 0; i < forecastData.list.length; i++) {
-            const forecast = forecastData.list[i];
-            const forecastDate = new Date(forecast.dt * 1000);
-            const dayName = dayNames[forecastDate.getDay()];
+
+    for (let i = 0; i < forecastData.list.length; i++) {
+        const forecast = forecastData.list[i];
+        const forecastDate = new Date(forecast.dt * 1000);
+        const dayName = dayNames[forecastDate.getDay()];
 
             // Check if this day has already been displayed
             if (!displayedDays[dayName]) {
@@ -198,14 +201,19 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
                 // Determine the weather icon source based on forecastWeatherDescription
                 const weatherIconSrc = weatherIconMapping[forecastWeatherDescription] || weatherIconMapping.default;
 
-                // Create the HTML for the forecast entry
-                const forecastEntryHTML = `
-            <div class="upcomingDays">
-                <h4>${dayName}</h4>
-                <p>Temperature: ${forecastTemperature}°C</p>
-                <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon">
-            </div>
-        `;
+        // Create the HTML for the forecast entry
+        const container = document.createElement('div');
+
+// Set the innerHTML of the container to your HTML template
+const forecastEntryHTML = `
+        <div class="upcomingDays">
+            <h4 class="upcomingDaysHeadline">${dayName}</h4><br>
+            <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon"><br>
+            <p class="upcomingDaysTemp">${forecastTemperature}°C</p>
+        </div>
+`;
+
+container.innerHTML = forecastEntryHTML;
 
                 // Append the forecast entry HTML to the upcomingDaysWeatherHTML
                 upcomingDaysWeatherHTML += forecastEntryHTML;
@@ -219,6 +227,8 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
                 break;
             }
         }
+
+   
 
         // Set the entire HTML content to the upcomingDaysWeather element
         upcomingDaysWeather.innerHTML = upcomingDaysWeatherHTML;
