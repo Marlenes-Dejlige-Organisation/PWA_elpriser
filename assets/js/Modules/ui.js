@@ -98,6 +98,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
                 </div>
             </div>
         </div>
+        
     `;
 
     weatherInfo.innerHTML = `
@@ -115,6 +116,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
             
         </div>
         <div class="decorative-line"></div>
+        
     `;
 
     return iconSrc; // Return the weather icon URL
@@ -208,13 +210,14 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
 
 // Set the innerHTML of the container to your HTML template
 const forecastEntryHTML = `
+
         <div class="upcomingDays">
             <h4 class="upcomingDaysHeadline">${dayName}</h4><br>
             <img src="${weatherIconSrc}" alt="${forecastWeatherDescription}" class="upcoming-days-weather-icon"><br>
             <p class="upcomingDaysTemp">${forecastTemperature}°C</p>
-            
         </div>
-`;
+        
+        <div class="orangebar"></div>`;
 
 container.innerHTML = forecastEntryHTML;
 

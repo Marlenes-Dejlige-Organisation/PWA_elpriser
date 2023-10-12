@@ -77,17 +77,17 @@ body::-webkit-scrollbar {
 .nu {
     display: flex;
     justify-content: space-between;
-    margin: 2rem 0 2rem 0;
+    margin: 2rem 0 1rem 0;
 }
 .decorative-line {
-    border-bottom: 3px solid #33313d; /* Juster farve og stregtype efter behov */
-    margin: 1rem 1rem; /* Juster margin efter behov */
+    border-bottom: 3px solid #33313d; 
+    margin: 0 1rem 2rem 1rem;
     border-radius: 30px;
 }
 
 
 .nu h2 {
-    color: #8E816F;
+    color: #33313D;
     margin-top: 1rem;
     margin-left: 1rem;
     font-size: 30px;
@@ -116,8 +116,6 @@ body::-webkit-scrollbar {
     transform: translateX(-50%);
     transform: translateY(-90%);
     width: 20px;
-
-
 }
 
 /* næste par */
@@ -166,7 +164,6 @@ body::-webkit-scrollbar {
     width: 100%;
     border-top: 2px solid #161515;
     margin: 0 auto;
-
 }
 
 
@@ -190,16 +187,12 @@ body::-webkit-scrollbar {
 }
 #upcomingDaysWeather {
     display: flex;
-    height: 200px; 
-    width: 540px; 
-    border-radius: 0 10px 10px 0;
-    
+    height: 300px; 
     overflow: scroll;
     align-items: center;
-    padding: 20px 0 20px 0;
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
-    white-space: nowrap;
-    
+    border-radius: 5px;
+    background-color: #33313D;
 }
 
 #upcomingDaysWeather::-webkit-scrollbar {
@@ -207,29 +200,25 @@ body::-webkit-scrollbar {
 }
 
 .upcomingDays {
-    
+    font-size: 30px;;
     display: flex;
     height: 200px;
     width: 180px;
     flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
-    margin-top: rem;
     align-items: center;
     flex-direction: column;
-    background-color: #33313D;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-    /* Add any other styles you need */
-    border-left: 6px solid #fb8332; 
 }
 
 
-.upcomingDays:nth-child(1) {
-    border-left: none;
-}
-
-.upcomingDays:nth-child(1) {
-    border-radius: 10px 0 0 10px;
+.orangebar{
+    z-index: 100;
+    height: 220px;
+    border: 2px solid #fb8332;
+    border-radius: 200px;
+    transform: rotate(180deg);
 }
 
   
@@ -245,11 +234,11 @@ body::-webkit-scrollbar {
 
 
 .upcoming-days-weather-icon {
-    width: 25%;
+    width: 40%;
 }
 .upcomingDays img {
-    width: 50px;
-    margin-left: 1%;
+    width: 70px;
+    /* margin-left: 1%; */
 }
 
 .topInfo {
@@ -263,7 +252,7 @@ body::-webkit-scrollbar {
 }
 
 .date {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 
