@@ -178,7 +178,7 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
         let upcomingDaysWeatherHTML = '';
 
         // Define an array of day names
-        const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const dayNames = ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lørdag'];
 
         // Loop through the forecast data and display upcoming days
         const daysToDisplay = 5;
@@ -195,7 +195,7 @@ export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
 
             // Check if this day has already been displayed
             if (!displayedDays[dayName]) {
-                const forecastTemperature = forecast.main.temp.toFixed(1);
+                const forecastTemperature = forecast.main.temp.toFixed(0);
                 const forecastWeatherDescription = forecast.weather[0].description.toLowerCase(); // Convert to lowercase
 
                 // Determine the weather icon source based on forecastWeatherDescription

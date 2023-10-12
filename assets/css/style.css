@@ -77,6 +77,7 @@ body::-webkit-scrollbar {
 .nu {
     display: flex;
     justify-content: space-between;
+    margin: 2rem 0 2rem 0;
 }
 
 .nu h2 {
@@ -212,6 +213,7 @@ body::-webkit-scrollbar {
     /* Add any other styles you need */
     border-left: 6px solid #fb8332;
     
+    
 }
 
 
@@ -313,7 +315,6 @@ box-shadow: 0px 3px 8px -1px #000000;
     display: flex;
     flex-wrap: nowrap;
     overflow: auto;
-    height: 60%;
 }
 
 .side-by-side-container::-webkit-scrollbar {
@@ -324,6 +325,7 @@ box-shadow: 0px 3px 8px -1px #000000;
 #upcomingWeather {
     width: 100%;
     flex: 0 0 auto;
+    
 }
 
 #upcomingWeather::-webkit-scrollbar {
