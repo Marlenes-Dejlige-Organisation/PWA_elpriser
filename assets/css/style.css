@@ -35,26 +35,64 @@ body::-webkit-scrollbar {
     width: 1.2%;
     margin-left: 1%;
 }
-#upcomingDaysWeather{
-    /* display: inline-block; */
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+#upcomingDaysWeather {
+    display: flex;
+    height: 200px; 
+    width: 600px; 
+    border-radius: 0 10px 10px 0;
+    margin: 30px 0 30px 10px;  
+    overflow: scroll;
+    align-items: center;
+    padding: 20px 0 20px 0;
+    overflow-x: auto; /* Enable horizontal scrolling when necessary */
+    white-space: nowrap;
     
 }
 
+#upcomingDaysWeather::-webkit-scrollbar {
+    display: none;
+}
+
 .upcomingDays {
+    
     display: flex;
-    height: 150px;
-    width: 75%;
+    height: 200px;
+    width: 200px;
+    flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    overflow-block: hidden;
     background-color: #33313D;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    /* Add any other styles you need */
+    border-left: 6px solid #fb8332;
+    
 }
+
+
+.upcomingDays:nth-child(1) {
+    border-left: none;
+  
+}
+
+.upcomingDays:nth-child(1) {
+    border-radius: 10px 0 0 10px;
+  
+}
+
+  
+  /* Add a media query to adjust the container when the viewport is smaller */
+  @media screen and (max-width: 600px) {
+   
+    .upcomingDays {
+      min-width: auto; /* Allow cells to shrink when the viewport is smaller */
+    }
+  }
+
 
 
 
 .upcoming-days-weather-icon {
-    width: 15%;
+    width: 25%;
 }
