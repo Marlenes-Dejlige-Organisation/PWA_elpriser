@@ -1,3 +1,5 @@
+// utils.js
+
 export function degreesToCompass(degrees) {
     const compassDirections = [
       "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
