@@ -89,6 +89,8 @@ body::-webkit-scrollbar {
 .nu h2 {
     color: #8E816F;
     margin-top: 1rem;
+    margin-left: 1rem;
+    font-size: 30px;
 }
 
 .wendy {
@@ -109,11 +111,10 @@ body::-webkit-scrollbar {
     color: white;
     position: absolute;
     z-index: 2;
-    top: 50%;
-    left: 40%;
+    top: 48%;
+    left: 36%;
     transform: translateX(-50%);
     transform: translateY(-90%);
-    z-index: 2;
     width: 20px;
 
 
@@ -122,12 +123,13 @@ body::-webkit-scrollbar {
 /* næste par */
 
 #upcomingWeather {
-    height: 50vh;
+    height: 40vh;
     overflow: auto;
     background-color: #F3F1F0;
     width: 500px;
     border-radius: 8px;
     margin: auto;
+    margin-bottom: 2rem;;
     padding: 4rem;
     font-size: 30px;
 }
@@ -211,15 +213,14 @@ body::-webkit-scrollbar {
     width: 180px;
     flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
+    margin-top: rem;
     align-items: center;
     flex-direction: column;
     background-color: #33313D;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     /* Add any other styles you need */
-    border-left: 6px solid #fb8332;
-    
-    
+    border-left: 6px solid #fb8332; 
 }
 
 
@@ -279,7 +280,7 @@ body::-webkit-scrollbar {
 }
 
 .sunTime {
-    opacity: 50%;
+    opacity: 75%;
 }
 
 /* Search Bar */
@@ -327,11 +328,11 @@ box-shadow: 0px 3px 8px -1px #000000;
     display: none;
 }
 
+
 #weatherInfo,
 #upcomingWeather {
     width: 100%;
     flex: 0 0 auto;
-    
 }
 
 #upcomingWeather::-webkit-scrollbar {
