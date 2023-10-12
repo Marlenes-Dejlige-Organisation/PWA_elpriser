@@ -40,6 +40,7 @@ const weekdayNames = [
 
 // CURRENT WEATHER
 export function displayWeatherInfo(weatherData, weatherDescription) {
+    const topInfo = document.getElementById('topInfo');
     const weatherInfo = document.getElementById('weatherInfo');
     const currentDate = new Date();
 
@@ -54,8 +55,8 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     const dayOfWeek = weekdayNames[currentDate.getDay()];
 
     // Format sunrise and sunset times in 24-hour format
-    const sunriseTime = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false})
-    const sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: false})
+    const sunriseTime = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
+    const sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
 
     // Get wind direction as compass direction
     const windDirection = degreesToCompass(weatherData.wind.deg);
@@ -82,32 +83,35 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
 
     const sunIcon = 'assets/img/symboler/sol_opogned_ikon.png';
 
+    topInfo.innerHTML = `
+        <div class="topInfo">
+            <div class="topLeft">
+                <p class="date">${day} ${monthName}. ${dayOfWeek}</p>
+            </div>
+            <div class="topRight">
+                <div class="sunriseIcon">
+                    <img src="${sunIcon}">
+                </div>
+                <div class="sunTime">
+                    <p>${sunriseTime}</p>
+                    <p>${sunsetTime}</p>
+                </div>
+            </div>
+        </div>
+    `;
+
     weatherInfo.innerHTML = `
         <div class="weatherInfo">
-            <div class="topInfo">
-                <div class="topLeft">
-                    <p class="date">${day} ${monthName}. ${dayOfWeek}</p>
-                </div>
-                <div class="topRight">
-                    <div class="sunriseIcon">
-                        <img src="${sunIcon}">
-                    </div>
-                    <div class="sunTime">
-                        <p>${sunriseTime}</p>
-                        <p>${sunsetTime}</p>
-                    </div>
-                </div>
-            </div>
-            
             <div class="imgTemp">
-            <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
-            <p>${weatherData.main.temp.toFixed(0)}°C</p>
+                <img class="current-weather-icon" src="${iconSrc}" alt="${weatherDescription}" />
+                <p>${weatherData.main.temp.toFixed(0)}°C</p>
             </div>
             <div class="nu">
-            <h2>Vejret lige nu...</h2>
+                <h2>Vejret lige nu...</h2>
             <div class="wendy">
-            <img src="${windDirectionIcon}" alt="windDirection" style=" transform: rotate(${windDirectionDegrees}deg);">
-            <p>${weatherData.wind.speed.toFixed(0)}</p></div></div>
+                <img src="${windDirectionIcon}" alt="windDirection" style=" transform: rotate(${windDirectionDegrees}deg);">
+                <p>${weatherData.wind.speed.toFixed(0)}</p>
+            </div>
         </div>
     `;
 
