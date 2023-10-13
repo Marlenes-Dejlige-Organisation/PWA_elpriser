@@ -111,8 +111,8 @@ body::-webkit-scrollbar {
     color: white;
     position: absolute;
     z-index: 2;
-    top: 48%;
-    left: 36%;
+    top: 49%;
+    left: 44%;
     transform: translateX(-50%);
     transform: translateY(-90%);
     width: 20px;
@@ -128,7 +128,7 @@ body::-webkit-scrollbar {
     border-radius: 8px;
     margin: auto;
     margin-bottom: 2rem;;
-    padding: 4rem;
+    padding: 3rem;
     font-size: 30px;
 }
 
@@ -178,8 +178,8 @@ body::-webkit-scrollbar {
 .upcomingHours p:last-of-type {
     font-size: 20px;
     position: absolute;
-    top: 36%;
-    left: 84.5%;
+    top: 39%;
+    left: 84%;
     transform: translateX(-50%);
     z-index: 2;
     width: 20px;
@@ -290,6 +290,9 @@ body::-webkit-scrollbar {
     background-color: #F9F8F7;
     -webkit-box-shadow: 0px 3px 8px -1px #000000; 
 box-shadow: 0px 3px 8px -1px #000000;
+font-size: 25px;
+color: #fb8332;
+font-weight: 600;
 }
 
 #searchButton {
