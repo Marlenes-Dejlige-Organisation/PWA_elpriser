@@ -26,7 +26,7 @@ body::-webkit-scrollbar {
 }
 
 .body-rain {
-    background-color: #575757;
+    background-color: #4d5a68;
     /* Rain */
 }
 
@@ -47,38 +47,45 @@ body::-webkit-scrollbar {
     overflow: auto; /* Enable horizontal scrolling if content overflows */
 }
 
-.current-weather-icon {
-    width: 70%
-}
+/* .current-weather-icon {
+    width: 70vw;
+} */
 
 /* nuværende vejrsymbol og temp */
 .imgTemp {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 400px; */
+    height: 25vh;
     /* Juster højden efter behov */
     position: relative;
+    margin-bottom: 2rem;
+}
+.imgTemp img{
+height: 120%;
+margin-top: 1rem;
 }
 
 .imgTemp p {
-    font-size: 81px;
+    font-size: 8vh;
     font-weight: 900;
     position: absolute;
-    bottom: 5%;
-    left: 5%;
+    bottom: -30%;
+    left: 1%;
 }
 
 /* nuværende vind */
 .nu {
     display: flex;
     justify-content: space-between;
+    height: 13vh;
     /* margin: 2rem 0 1rem 0; */
+    position: relative;
 }
 .decorative-line {
     width: 80%;
     margin: auto;
-    border-bottom: 3px solid #33313d; 
+    border: 1px solid #33313d; 
     /* margin: 0 1rem 2rem 1rem; */
     border-radius: 30px;
 }
@@ -87,22 +94,19 @@ body::-webkit-scrollbar {
 .nu h2 {
     color: #33313D;
     margin-top: 2rem;
-    margin-left: 0.8rem;
-    font-size: 15px;
+    font-size: 4.5vh;
 }
 
 .wendy {
-    position: relative;
-    top: 10px;;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .wendy img {
     width: 50px;
-    margin-bottom: 1rem;
-    transform: translateY(-50%);
-    
+margin-bottom: 2rem;
     z-index: 1;
-
 }
 
 .wendy p {
@@ -110,11 +114,8 @@ body::-webkit-scrollbar {
     color: white;
     position: absolute;
     z-index: 2;
-    top: 49%;
-    left: 44%;
-    transform: translateX(-50%);
-    transform: translateY(-90%);
-    width: 20px;
+left: 1.3rem;
+bottom: 3.2rem;
 }
 
 /* næste par */
@@ -201,10 +202,8 @@ body::-webkit-scrollbar {
 }
 
 .active-day {
-    background-color: #c9c8c8; /* Use your preferred lighter gray color */
-    border-radius: 8px;
-    border: #fb8332 3px solid;
-    
+    background-color: #f9f8f74a; /* Use your preferred lighter gray color */
+
   }
 
 #upcomingDaysWeather::-webkit-scrollbar {
@@ -212,9 +211,10 @@ body::-webkit-scrollbar {
 }
 
 .upcomingDays {
-    font-size: 15px;;
+    font-size: 15px;
+    
     display: flex;
-    height: 40px;
+    height: 40vh;
     width: 110px;
     flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
@@ -232,22 +232,6 @@ body::-webkit-scrollbar {
     transform: rotate(180deg);
 }
 
-  /* Add a media query to adjust the container when the viewport is smaller */
-  @media screen and (max-width: 600px) {
-    #dag p:last-of-type{
-        font-size: 4vw;
-    }
-    .upcomingHours p:last-of-type {
-        font-size: 3.2vw;
-    }
-    #upcomingWeather {
-        font-size: 4.8vw;
-        padding: 2.2rem;
-    }
-    .upcomingDays {
-      min-width: auto; /* Allow cells to shrink when the viewport is smaller */
-    }
-  }
 
 .upcoming-days-weather-icon {
     width: 40%;
@@ -307,7 +291,7 @@ body::-webkit-scrollbar {
     -webkit-box-shadow: 0px 3px 8px -1px #000000; 
     box-shadow: 0px 3px 8px -1px #000000;
     font-size: 25px;
-    color: #ccc;
+    color: #747474;
     font-weight: 600;
 }
 
@@ -345,3 +329,70 @@ body::-webkit-scrollbar {
 #upcomingWeather::-webkit-scrollbar {
     display: none;
 }
+@media screen and (max-width: 700px) {
+    #dag p:last-of-type{
+        font-size: 2vh;
+    }
+    .upcomingHours p:last-of-type {
+        font-size: 3.2vw;
+    }
+    #upcomingWeather {
+        font-size: 4.8vw;
+        padding: 2rem;
+    }
+    .upcomingDays {
+      min-width: auto; /* Allow cells to shrink when the viewport is smaller */
+    }
+    .imgTemp p {
+        font-size: 7vh;
+  }
+  .nu h2{
+    margin-top: 3rem;
+    font-size: 3vh;
+  }
+    
+  }
+
+  @media screen and (max-width: 412px) {
+    .wendy p {
+        top: 23%;
+    }
+    .imgTemp p {
+        font-size: 6vh;
+  }
+  .nu h2{
+    margin-top: 3rem;
+    font-size: 4vh;
+  }
+}
+
+  @media screen and (max-width: 375px) {
+    .wendy p {
+        top: 20%;
+    }
+    .imgTemp p {
+        font-size: 8vh;
+        bottom: -32%;
+        left: 0;
+  }
+  .nu h2{
+    margin-top: 2.5rem;
+    font-size: 3vh;
+  }
+  }
+
+  @media screen and (max-width: 360px) {
+    .wendy p {
+      
+    }
+    .imgTemp p {
+        font-size: 6.5vh;
+  }
+  }
+
+  @media screen and (min-width: 700px) {
+    #searchButton {
+        width: 10%;
+    }
+
+  }
