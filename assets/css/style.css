@@ -26,7 +26,7 @@ body::-webkit-scrollbar {
 }
 
 .body-rain {
-    background-color: #33313D;
+    background-color: #575757;
     /* Rain */
 }
 
@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 /* næste par */
 
 #upcomingWeather {
-    height: 550px;
+    height: 57vh;
     overflow: auto;
     background-color: #F3F1F0;
     width: 500px;

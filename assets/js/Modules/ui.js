@@ -6,11 +6,11 @@ import { degreesToCompass } from "./utils.js";
 const weatherIconMapping = {
     'clear sky': 'assets/img/vejrikoner/sol.png',
     'few clouds': 'assets/img/vejrikoner/letskyet.png',
-    'scattered clouds': 'assets/img/vejrikoner/skyet.png',
-    'broken clouds': 'assets/img/vejrikoner/skyet.png',
+    'scattered clouds': 'assets/img/vejrikoner/letskyet.png',
+    'broken clouds': 'assets/img/vejrikoner/letskyet.png',
     'overcast clouds': 'assets/img/vejrikoner/skyet.png',
     'light rain': 'assets/img/vejrikoner/Regn.png',
-    'moderate rain': 'assets/img/vejrikoner/Regn.png',
+    'moderate rain': 'assets/img/vejrikoner/let regn2.png',
     'snow': 'assets/img/vejrikoner/sne.png',
     'default': 'assets/img/asshat.png' // Default icon for unknown weather conditions
 };
