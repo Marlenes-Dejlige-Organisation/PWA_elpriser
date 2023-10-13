@@ -10,7 +10,7 @@ const weatherIconMapping = {
     'broken clouds': 'assets/img/vejrikoner/letskyet.png',
     'overcast clouds': 'assets/img/vejrikoner/skyet.png',
     'light rain': 'assets/img/vejrikoner/Regn.png',
-    'moderate rain': 'assets/img/vejrikoner/let regn.png',
+    'moderate rain': 'assets/img/vejrikoner/let regn2.png',
     'snow': 'assets/img/vejrikoner/sne.png',
     'default': 'assets/img/asshat.png' // Default icon for unknown weather conditions
 };

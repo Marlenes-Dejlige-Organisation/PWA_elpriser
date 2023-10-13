@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 /* næste par */
 
 #upcomingWeather {
-    height: 40vh;
+    height: 57vh;
     overflow: auto;
     background-color: #F3F1F0;
     width: 500px;
