@@ -122,8 +122,8 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     return iconSrc; // Return the weather icon URL
 }
 
-// UPCOMING WEATHER timetabel___________________________________________
-export function displayUpcomingWeather(forecastData, weatherIconSrc) {
+// UPCOMING WEATHER
+export function displayUpcomingWeather(forecastData, iconSrc) {
     const upcomingWeather = document.getElementById('upcomingWeather');
 
     // Check if the 'upcomingWeather' element exists
@@ -183,8 +183,7 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
 
 
 // UPCOMING DAYS WEATHER
-export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
-    console.log(forecastData);
+export function displayUpcomingDaysWeather(forecastData, iconSrc) {
     const upcomingDaysWeather = document.getElementById('upcomingDaysWeather');
 
     // Check if the 'upcomingDaysWeather' element exists
