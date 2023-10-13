@@ -165,7 +165,11 @@ body::-webkit-scrollbar {
     border-top: 2px solid #161515;
     margin: 0 auto;
 }
-
+#dag p:last-of-type{
+    color: #fb8332;
+    font-size: 3vh;
+    font-weight: 100;
+}
 
 /* Tilpasning til vindhastighed og ikon */
 .upcomingHours img:last-of-type {
@@ -175,7 +179,7 @@ body::-webkit-scrollbar {
     z-index: 1;
 }
 
-.upcomingHours p:last-of-type {
+#speed {
     font-size: 20px;
     position: absolute;
     top: 39%;
@@ -193,7 +197,13 @@ body::-webkit-scrollbar {
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
     border-radius: 5px;
     background-color: #33313D;
+    cursor: pointer;
 }
+
+.active-day {
+    background-color: #CCCCCC; /* Use your preferred lighter gray color */
+    height: 100%;
+  }
 
 #upcomingDaysWeather::-webkit-scrollbar {
     display: none;
@@ -224,7 +234,13 @@ body::-webkit-scrollbar {
   
   /* Add a media query to adjust the container when the viewport is smaller */
   @media screen and (max-width: 600px) {
-   
+    .upcomingHours p:last-of-type {
+        font-size: 3.2vw;
+    }
+    #upcomingWeather {
+        font-size: 4.8vw;
+        padding: 2.2rem;
+    }
     .upcomingDays {
       min-width: auto; /* Allow cells to shrink when the viewport is smaller */
     }
@@ -289,10 +305,10 @@ body::-webkit-scrollbar {
     border-radius: 5px;
     background-color: #F9F8F7;
     -webkit-box-shadow: 0px 3px 8px -1px #000000; 
-box-shadow: 0px 3px 8px -1px #000000;
-font-size: 25px;
-color: #fb8332;
-font-weight: 600;
+    box-shadow: 0px 3px 8px -1px #000000;
+    font-size: 25px;
+    color: #fb8332;
+    font-weight: 600;
 }
 
 #searchButton {
