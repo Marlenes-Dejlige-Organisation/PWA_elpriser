@@ -201,8 +201,10 @@ body::-webkit-scrollbar {
 }
 
 .active-day {
-    background-color: #CCCCCC; /* Use your preferred lighter gray color */
-    height: 100%;
+    background-color: #c9c8c8; /* Use your preferred lighter gray color */
+    border-radius: 8px;
+    border: #fb8332 3px solid;
+    
   }
 
 #upcomingDaysWeather::-webkit-scrollbar {
