@@ -167,7 +167,7 @@ body::-webkit-scrollbar {
 }
 #dag p:last-of-type{
     color: #fb8332;
-    font-size: 3vh;
+    font-size: 30px;
     font-weight: 100;
 }
 
@@ -234,6 +234,9 @@ body::-webkit-scrollbar {
   
   /* Add a media query to adjust the container when the viewport is smaller */
   @media screen and (max-width: 600px) {
+    #dag p:last-of-type{
+        font-size: 4vw;
+    }
     .upcomingHours p:last-of-type {
         font-size: 3.2vw;
     }
