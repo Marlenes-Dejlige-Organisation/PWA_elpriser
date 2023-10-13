@@ -184,6 +184,7 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
 
 // UPCOMING DAYS WEATHER
 export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
+    console.log(forecastData);
     const upcomingDaysWeather = document.getElementById('upcomingDaysWeather');
 
     // Check if the 'upcomingDaysWeather' element exists
