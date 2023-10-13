@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 /* næste par */
 
 #upcomingWeather {
-    height: 57vh;
+    height: 550px;
     overflow: auto;
     background-color: #F3F1F0;
     width: 500px;
@@ -197,7 +197,13 @@ body::-webkit-scrollbar {
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
     border-radius: 5px;
     background-color: #33313D;
+    cursor: pointer;
 }
+
+.active-day {
+    background-color: #CCCCCC; /* Use your preferred lighter gray color */
+    height: 100%;
+  }
 
 #upcomingDaysWeather::-webkit-scrollbar {
     display: none;
@@ -228,7 +234,13 @@ body::-webkit-scrollbar {
   
   /* Add a media query to adjust the container when the viewport is smaller */
   @media screen and (max-width: 600px) {
-   
+    .upcomingHours p:last-of-type {
+        font-size: 3.2vw;
+    }
+    #upcomingWeather {
+        font-size: 4.8vw;
+        padding: 2.2rem;
+    }
     .upcomingDays {
       min-width: auto; /* Allow cells to shrink when the viewport is smaller */
     }
@@ -293,10 +305,10 @@ body::-webkit-scrollbar {
     border-radius: 5px;
     background-color: #F9F8F7;
     -webkit-box-shadow: 0px 3px 8px -1px #000000; 
-box-shadow: 0px 3px 8px -1px #000000;
-font-size: 25px;
-color: #fb8332;
-font-weight: 600;
+    box-shadow: 0px 3px 8px -1px #000000;
+    font-size: 25px;
+    color: #fb8332;
+    font-weight: 600;
 }
 
 #searchButton {
