@@ -193,7 +193,13 @@ body::-webkit-scrollbar {
     overflow-x: auto; /* Enable horizontal scrolling when necessary */
     border-radius: 5px;
     background-color: #33313D;
+    cursor: pointer;
 }
+
+.active-day {
+    background-color: #CCCCCC; /* Use your preferred lighter gray color */
+    height: 100%;
+  }
 
 #upcomingDaysWeather::-webkit-scrollbar {
     display: none;
