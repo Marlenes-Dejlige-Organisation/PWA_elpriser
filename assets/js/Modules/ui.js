@@ -123,7 +123,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
 }
 
 // UPCOMING WEATHER
-export function displayUpcomingWeather(forecastData, weatherIconSrc) {
+export function displayUpcomingWeather(forecastData, iconSrc) {
     const upcomingWeather = document.getElementById('upcomingWeather');
 
     // Check if the 'upcomingWeather' element exists
@@ -173,7 +173,7 @@ export function displayUpcomingWeather(forecastData, weatherIconSrc) {
 
 
 // UPCOMING DAYS WEATHER
-export function displayUpcomingDaysWeather(forecastData, weatherIconSrc) {
+export function displayUpcomingDaysWeather(forecastData, iconSrc) {
     const upcomingDaysWeather = document.getElementById('upcomingDaysWeather');
 
     // Check if the 'upcomingDaysWeather' element exists
