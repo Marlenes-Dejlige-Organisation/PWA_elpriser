@@ -86,7 +86,7 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
     topInfo.innerHTML = `
         <div class="topInfo">
             <div class="topLeft">
-                <p class="date">${day} ${monthName}. ${dayOfWeek}</p>
+                <p class="date">${day}. ${monthName}. ${dayOfWeek}</p>
             </div>
             <div class="topRight">
                 <div class="sunriseIcon">
