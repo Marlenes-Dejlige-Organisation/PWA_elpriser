@@ -121,7 +121,7 @@ body::-webkit-scrollbar {
 /* næste par */
 
 #upcomingWeather {
-    height: 57vh;
+    height: 550px;
     overflow: auto;
     background-color: #F3F1F0;
     width: 500px;
@@ -224,7 +224,13 @@ body::-webkit-scrollbar {
   
   /* Add a media query to adjust the container when the viewport is smaller */
   @media screen and (max-width: 600px) {
-   
+    .upcomingHours p:last-of-type {
+        font-size: 3.2vw;
+    }
+    #upcomingWeather {
+        font-size: 4.8vw;
+        padding: 2.2rem;
+    }
     .upcomingDays {
       min-width: auto; /* Allow cells to shrink when the viewport is smaller */
     }
