@@ -165,7 +165,11 @@ body::-webkit-scrollbar {
     border-top: 2px solid #161515;
     margin: 0 auto;
 }
-
+#dag p:last-of-type{
+    color: #fb8332;
+    font-size: 3vh;
+    font-weight: 100;
+}
 
 /* Tilpasning til vindhastighed og ikon */
 .upcomingHours img:last-of-type {
@@ -175,7 +179,7 @@ body::-webkit-scrollbar {
     z-index: 1;
 }
 
-.upcomingHours p:last-of-type {
+#speed {
     font-size: 20px;
     position: absolute;
     top: 39%;
