@@ -215,7 +215,7 @@ body::-webkit-scrollbar {
     font-size: 15px;;
     display: flex;
     height: 40px;
-    width: 180px;
+    width: 110px;
     flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
     align-items: center;
@@ -307,7 +307,7 @@ body::-webkit-scrollbar {
     -webkit-box-shadow: 0px 3px 8px -1px #000000; 
     box-shadow: 0px 3px 8px -1px #000000;
     font-size: 25px;
-    color: #fb8332;
+    color: #ccc;
     font-weight: 600;
 }
 
