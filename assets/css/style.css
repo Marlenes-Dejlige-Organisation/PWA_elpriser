@@ -218,7 +218,7 @@ bottom: 3.2rem;
 .upcomingDays {
     font-size: 15px;
     display: flex;
-    height: 40vh;
+    height: 20vh;
     width: 7vw;
     flex-shrink: 0; /* Prevent cells from shrinking */
     justify-content: center;
