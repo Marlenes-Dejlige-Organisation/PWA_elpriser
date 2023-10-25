@@ -40,7 +40,7 @@ self.addEventListener('activate', event => {
     );
 });
 
-//Dette er det kodeeksempel heinz skrev på siden:
+//Dette er det kodeeksempel heinz skrev på siden
 
 self.addEventListener('fetch', event =>{
     if(!(event.request.url.indexOf('http')=== 0))return
@@ -58,27 +58,3 @@ self.addEventListener('fetch', event =>{
         })
     )
 })
-
-//Dette er koden fra opgaven:
-// self.addEventListener('fetch', event => {
-    
-//     // Kontroller svar på request
-//     event.respondWith(
-//         // Kig efter file match i cache 
-//         caches.match(event.request).then(cacheRes => {
-//             // Returner match fra cache - ellers hent fil på server
-//             return cacheRes || fetch(event.request).then(fetchRes => {
-//                 // Tilføjer nye sider til cachen
-//                 return caches.open(dynamicCacheName).then(cache => {
-//                     // Bruger put til at tilføje sider til vores cache
-//                     // Læg mærke til metoden clone
-//                     cache.put(event.request.url, fetchRes.clone());
-//                     // Returnerer fetch request
-//                     return fetchRes;
-//                 });
-//             }).catch(err => {
-//                 console.error('Fetch error:', err);
-//             });
-//         })
-//     );
-// });
