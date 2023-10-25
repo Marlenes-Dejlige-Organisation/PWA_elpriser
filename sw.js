@@ -43,6 +43,8 @@ self.addEventListener('activate', event => {
 //Dette er det kodeeksempel heinz skrev på siden
 
 self.addEventListener('fetch', event =>{
+    // Kalder limit cache funktionen
+limitCacheSize(dynamicCacheName, 2)
     if(!(event.request.url.indexOf('http')=== 0))return
     event.respondWith(
         caches.match(event.request).then(cacheResult =>{
@@ -58,3 +60,18 @@ self.addEventListener('fetch', event =>{
         })
     )
 })
+
+// Funktion til styring af antal filer i en given cache
+const limitCacheSize = (cacheName, numberOfAllowedFiles) => {
+	// Åbn den angivede cache
+	caches.open(cacheName).then(cache => {
+		// Hent array af cache keys 
+		cache.keys().then(keys => {
+			// Hvis mængden af filer overstiger det tilladte
+			if(keys.length > numberOfAllowedFiles) {
+				// Slet første index (ældste fil) og kør funktion igen indtil antal er nået
+				cache.delete(keys[0]).then(limitCacheSize(cacheName, numberOfAllowedFiles))
+			}
+		})
+	})
+}
