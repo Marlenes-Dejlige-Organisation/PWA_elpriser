@@ -1,11 +1,11 @@
 {
-    "name": "Weathering",
+    "name": "Weather App",
     "id":"./index.html",
-    "short_name": "wee",
+    "short_name": "WA",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#fff",
-    "description": "A wonderful weather app.",
+    "description": "The best weather app in the world!",
     "orientation":"portrait-primary",
     "icons": [
       {

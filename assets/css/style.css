@@ -41,7 +41,7 @@ body::-webkit-scrollbar {
 }
 
 .body-default {
-    background-color: #8E816F;
+    background-color: #b1b0b0;
     /* Default background color for unknown conditions */
 }
 
@@ -415,7 +415,9 @@ bottom: 3.2rem;
     #searchButton {
         width: 10%;
     }
-
+    .upcomingDays {
+        min-width: ; /* Allow cells to shrink when the viewport is smaller */
+      }
     
 
   }

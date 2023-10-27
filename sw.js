@@ -44,7 +44,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event =>{
     // Kalder limit cache funktionen
-limitCacheSize(dynamicCacheName, 2)
+limitCacheSize(dynamicCacheName, 20)
     if(!(event.request.url.indexOf('http')=== 0))return
     event.respondWith(
         caches.match(event.request).then(cacheResult =>{

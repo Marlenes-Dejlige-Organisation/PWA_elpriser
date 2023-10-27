@@ -75,8 +75,16 @@ export function displayWeatherInfo(weatherData, weatherDescription) {
         // If the weather description is unknown, display a default icon and background color
         iconSrc = 'assets/img/asshat.png';
         bodyBackgroundColorClass = 'body-default';
-        console.log(`Unknown weather description: ${weatherDescription}`);
+        const weatherDescription2 = 'Sikke noget mærkeligt vejr';
+        console.log(`Unknown weather description: ${weatherDescription2}`);
+        
+        // Create an H2 element with the weather description and append it to a container element (e.g., a div with the class "weather-description")
+        const weatherDescription2Element = document.createElement('h2');
+        weatherDescription2Element.textContent = weatherDescription2;
+        const container = document.getElementsByClassName('.weatherInfo'); // Replace with the appropriate selector for your container
+        container.appendChild(weatherDescription2Element);
     }
+    
 
     // Apply the background color class to the body element
     document.body.className = bodyBackgroundColorClass;
