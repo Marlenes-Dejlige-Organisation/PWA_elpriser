@@ -57,6 +57,7 @@ body {
     width: 50%;
 }
 
+
 /* indstillinger TANDHJUL OG HEADLINE */
 #tandhjulContainer{
     background-color: #27282B;
@@ -130,3 +131,19 @@ h5 {
     color: #55EC20;
 }
 
+/* historik */
+#gamle-timer{
+background-color: #201E1E;
+height:48vh;
+width: 90%;
+margin: auto;
+}
+/* Standard farve for alle links */
+#topBar .right ul li a {
+    color: #EBEBEB; /* Hvid farve */
+}
+
+/* Grøn farve for det aktive link */
+#topBar .right ul li a.active {
+    color: #55EC20; /* Grøn farve */
+}
