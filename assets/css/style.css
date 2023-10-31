@@ -16,9 +16,9 @@ body {
 
 /* Din eksisterende CSS-kode */
 #container-main {
-    height: 98vh;
-    width: 40vw;
-    background-color: aquamarine;
+    height: 100vh;
+    /* width: 40vw; */
+    background-color: #201E1E;
     margin: auto;
 }
 /* TOPBAR STYLE */
@@ -76,7 +76,8 @@ body {
     background-color: #27282B;
     text-align: center;
     color: #55EC20;
-    padding-bottom: 100px;
+    padding-top: 8vh;
+    height: 65vh;
 }
 #nuDisplay h2, h5{
     font-weight: 400;
@@ -86,8 +87,8 @@ body {
     background-color: #201E1E;
     border: #414142 solid 3px;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 15rem;
+    height: 15rem;
     margin: auto;
     margin-bottom: 1rem;
     display: flex;
