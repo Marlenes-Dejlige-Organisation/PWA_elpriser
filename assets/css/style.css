@@ -11,6 +11,118 @@
 body {
     font-family: 'Roboto Condensed', sans-serif;
     color: #ebebeb;
+    background-color: #f8f0f0;
+}
+
+/* Din eksisterende CSS-kode */
+#container-main {
+    height: 98vh;
+    width: 40vw;
+    background-color: aquamarine;
+    margin: auto;
+}
+/* TOPBAR STYLE */
+#topBar {
+    display: flex;
+    justify-content: space-between;
     background-color: #201E1E;
+}
+#topBar ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+#topBar .right ul li a {
+    padding: 0.3rem;
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: #EBEBEB;
+    transition: color 0.3s;
+}
+#topBar .right ul li a:hover {
+    color: #55EC20;
+}
+#topBar .right ul li a:active {
+    color: #55EC20;
+}
+.left {
+    margin: auto;
+    padding: 0.3rem;
+}
+.right {
+    margin: auto;
+    padding: 0.3rem;
+}
+.left img {
+    width: 50%;
+}
+
+/* indstillinger TANDHJUL OG HEADLINE */
+#tandhjulContainer{
+    background-color: #27282B;
+    text-align: end;
+    height: 100px;
+}
+#tandhjulContainer i{
+    padding: 1rem;
+}
+#tandhjulContainer h2{
+    text-align: center;
+    font-weight: 100;
+}
+
+/*.nuDisplay BEMÆRK DEN HAR HØJDE PÅ som skubber til footer!*/
+#nuDisplay {
+    background-color: #27282B;
+    text-align: center;
+    color: #55EC20;
+    padding-bottom: 100px;
+}
+
+#cirkelPris {
+    background-color: #201E1E;
+    border: #414142 solid 3px;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+#cirkelPris::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
+
+h2,
+h5 {
+    position: relative;
+}
+
+
+/* Stil for footer og #info-content */
+
+#info-footer {
+    background-color: #201E1E;
+    font-size: 0.6rem;
+    font-weight: 100;
+    padding: 1rem;
+    text-align: center;
+    color: #EBEBEB;
+}
+#info-footer span{
+    color: #55EC20;
 }
 
