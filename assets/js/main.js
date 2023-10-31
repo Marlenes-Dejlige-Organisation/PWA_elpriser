@@ -30,6 +30,7 @@ nuDisplayDiv.innerHTML = `
 </div>
 <p>klokkeslet</p>`
 
+
 //variabler til data-hentning:
 const iDag = new Date();
 const år = iDag.getFullYear();
@@ -40,7 +41,7 @@ const dag = iDag.getDate().toString().padStart(2, '0');
 // URL til API'en
 const apiUrl = `https://www.elprisenligenu.dk/api/v1/prices/${år}/${måned}-${dag}_${region}.json`;
 
-// Funktion til at formatere prisen med 4 decimaler
+// Funktion til at formatere prisen med 3 decimaler
 function formatPris(pris) {
     return parseFloat(pris).toFixed(3);
 }
@@ -60,12 +61,25 @@ function hentOgOpdaterElpris() {
                 const formateretPris = formatPris(aktuelPris);
 
                 // Hent tidsstart og tidsslut fra data
-                const tidsstart = data[0].time_start;
-                const tidsslut = data[0].time_end;
+                const tidNu = new Date();
+                const tidsstart = new Date(tidNu);
+                const tidsslut = new Date(tidNu);
 
                 // Opdater h2-elementet med den aktuelle pris og p-elementet med tidsspændet
                 nuDisplayH2.textContent = `${formateretPris} KR`;
-                nuDisplayTid.textContent = `${tidsstart} - ${tidsslut}`;
+                // Opdater p-elementet med tidsintervallet
+                tidsstart.setMinutes(0);
+                tidsstart.setSeconds(0);
+                tidsstart.setMilliseconds(0);
+
+                tidsslut.setMinutes(0);
+                tidsslut.setSeconds(0);
+                tidsslut.setMilliseconds(0);
+                tidsslut.setHours(tidsslut.getHours() + 1);
+
+                const tidsstartString = `${tidsstart.getHours().toString().padStart(2, '0')}:00`;
+                const tidsslutString = `${tidsslut.getHours().toString().padStart(2, '0')}:00`;
+                nuDisplayTid.textContent = `${tidsstartString}-${tidsslutString}`;
             } else {
                 console.error('Ingen data blev fundet i JSON-responsen.');
             }
@@ -77,6 +91,9 @@ function hentOgOpdaterElpris() {
 
 // Kald funktionen for at hente og opdatere elprisen
 hentOgOpdaterElpris();
+
+
+
 
 
 
