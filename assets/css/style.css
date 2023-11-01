@@ -9,9 +9,10 @@
 }
 
 body {
+    top: 0;
     font-family: 'Roboto Condensed', sans-serif;
     color: #ebebeb;
-    background-color: #f8f0f0;
+    background-color: #201E1E;
 }
 
 /* Din eksisterende CSS-kode */
@@ -304,26 +305,35 @@ h5 {
     cursor: pointer;
 }
 
-#calendar-days {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+.weekdays {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    gap: 0.5rem;
+    margin: auto;
 }
 
-.day {
-    text-align: center;
-    width: 14.28%;
-}
+
 
 #calendar-dates {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.calendar-date {
-    text-align: center;
-    width: 14.28%;
-    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    gap: 0.5rem;
+    margin: auto;
     cursor: pointer;
 }
 
+#calendar-dates div:hover{
+color: #55EC20;
+}
+
+#her{
+color: #EBEBEB;
+}
+
+#her2{
+    margin-top: 2rem;
+    color: #EBEBEB;
+    font-size: 0.8rem;
+}
