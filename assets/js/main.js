@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <h2>pris</h2>
             <h5>PR. KWH</h5>
         </div>
-        <p>klokkeslet</p
+        <p>klokkeslet</p>
     `;
 
     // Funktion til at opdatere teksten baseret på region
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Kald funktionen for at hente og opdatere elprisen
     hentOgOpdaterElpris();
 
-    // "HISTORIK"
+    // "HISTORIK"------------------------------
     const historikLink = document.querySelector('#topBar .right ul li:nth-child(3) a');
 
     // Tilføj en eventlistener til "HISTORIK" linket
@@ -144,12 +144,14 @@ document.addEventListener('DOMContentLoaded', function () {
         nuDisplayDiv.innerHTML = `
             <div class="search-bar">
                 <div class="search-input">
-                    <input type="text" id="selected-date" placeholder="Vælg en dato">
+                    <input type="text" id="her" placeholder="vælg en dato">
                 </div>
                 <div class="calendar-icon">
                     <i class="fa-solid fa-calendar-days" style="color: #55EC20;"></i>
                 </div>
             </div>
+            <p id="her2"></p>
+            <div id="timePriser"></div>
         `;
 
         // Gem en reference til calendarIcon
@@ -175,6 +177,164 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     });
+   // Indsæt følgende kode, hvor kalenderen skal vises (inden for modal-content i din HTML):
+const calendarModal = document.getElementById('calendar-modal');
+const calendarModalContent = document.querySelector('.modal-content');
+
+calendarModalContent.innerHTML = `
+  <div id="calendar">
+    <div id="calendar-header">
+      <span id="prev-month" class="calendar-nav">&#8249;</span>
+      <h3 id="calendar-month-year"></h3>
+      <span id="next-month" class="calendar-nav">&#8250;</span>
+    </div>
+    <div id="calendar-body">
+      <div class="weekdays">
+        <div>Søn</div>
+        <div>Man</div>
+        <div>Tir</div>
+        <div>Ons</div>
+        <div>Tor</div>
+        <div>Fre</div>
+        <div>Lør</div>
+      </div>
+      <div id="calendar-dates"></div>
+    </div>
+  </div>
+`;
+// kalender:
+
+const calendarMonthYear = document.getElementById('calendar-month-year');
+const calendarDates = document.getElementById('calendar-dates');
+const prevMonthButton = document.getElementById('prev-month');
+const nextMonthButton = document.getElementById('next-month');
+
+let currentDate = new Date(); // Den aktuelle dato
+let selectedDate = null; // Datoen, som brugeren vælger
+
+// Funktion til at opdatere kalenderen
+function updateCalendar(date) {
+  // Nulstil kalenderens indhold
+  calendarDates.innerHTML = '';
+
+  // Opret en kopi af den aktuelle dato
+  const currentMonth = new Date(date);
+  currentMonth.setDate(1); // Sæt til første dag i måneden
+
+  // Indstil måneds- og årsoplysninger i headeren
+  calendarMonthYear.textContent = `${currentMonth.toLocaleString('default', { month: 'long' })} ${currentMonth.getFullYear()}`;
+
+  // Find den første dag i ugen for den aktuelle måned
+  const firstDay = currentMonth.getDay();
+
+  // Få antallet af dage i den aktuelle måned
+  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+  // Opret dato-elementer for hver dag i måneden
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDate = document.createElement('div');
+    calendarDates.appendChild(emptyDate);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateElement = document.createElement('div');
+    dateElement.textContent = day;
+
+    // Tilføj et klikhåndterer til hver dato
+    dateElement.addEventListener('click', () => {
+        selectedDate = new Date(date);
+        selectedDate.setDate(day);
+        // Her kan du gemme eller bruge den valgte dato, f.eks. selectedDate
+        console.log('Valgt dato:', selectedDate);
+        hentOgVisTimePriser(selectedDate); // TimePRISER
+        // Formater datoen som "dd-mm-yyyy"
+        const formattedDate = `${String(day).padStart(2, '0')}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${selectedDate.getFullYear()}`;
+      
+        // Indsæt den formaterede dato i inputfeltet
+        const myInput = document.getElementById('her');
+        myInput.value = formattedDate;
+
+         // Indsæt teksten "ELPRISERNE FOR" foran formattedDate
+  const fullText = `ELPRISERNE FOR D. ${formattedDate}`;
+
+  // Indsæt den fulde tekst i p-tagget
+  const myp = document.getElementById('her2');
+  myp.textContent = fullText;
+      
+        // Skjul modalen ved at ændre dens display-stil til "none"
+        const calendarModal = document.getElementById('calendar-modal');
+        calendarModal.style.display = 'none';
+      });
+      
+
+    calendarDates.appendChild(dateElement);
+  }
+}
+
+// Opdater kalenderen med den aktuelle dato
+updateCalendar(currentDate);
+
+// Klikhåndterere for at skifte måneder
+prevMonthButton.addEventListener('click', () => {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  updateCalendar(currentDate);
+});
+
+nextMonthButton.addEventListener('click', () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  updateCalendar(currentDate);
+});
+
+// Luk modalen ved at klikke uden for kalenderen
+calendarModal.addEventListener('click', (e) => {
+  if (e.target === calendarModal) {
+    calendarModal.style.display = 'none';
+  }
+});
+
+//----------------timepris
+
+function hentOgVisTimePriser(selectedDate) {
+    const timePriserDiv = document.getElementById('timePriser');
+    timePriserDiv.innerHTML = ''; // Ryd tidligere priser, hvis der er nogen
+  
+    // Hent året, måneden og dagen fra den valgte dato
+    const år = selectedDate.getFullYear();
+    const måned = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    const dag = selectedDate.getDate().toString().padStart(2, '0');
+    const prisklasse = region;
+    // const apiUrl2 = `https://www.elprisenligenu.dk/api/v1/prices/${år}-${måned}-${dag}_${prisklasse}`; // Erstat DIN_API_URL med den faktiske URL
+  
+    fetch(apiUrl)
+      .then(response => response.json()) // Konverter JSON-responsen til et JavaScript-objekt
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const hourlyPrices = data; // Antages at API'et leverer priser i timeintervaller
+  
+          // Opret en liste og tilføj hvert timeinterval og pris som et element i listen
+          const timePriserListe = document.createElement('ul');
+          timePriserListe.classList.add('time-priser-liste');
+  
+          hourlyPrices.forEach(item => {
+            const time_start = new Date(item.time_start).getHours();
+            const pris = item.DKK_per_kWh;
+  
+            const listItem = document.createElement('li');
+            listItem.textContent = `Kl. ${time_start}:00 - Pris: ${pris} KR/kWh`;
+            timePriserListe.appendChild(listItem);
+          });
+  
+          timePriserDiv.appendChild(timePriserListe);
+        } else {
+          console.error('Ingen data blev fundet i JSON-responsen.');
+        }
+      })
+      .catch(error => {
+        console.error('Fejl ved hentning af timepriser:', error);
+      });
+  }
+  
+  //------------------------------
 
     // "LIGE NU"
     const ligeNuLink = document.querySelector('#topBar .right ul li:nth-child(2) a');
