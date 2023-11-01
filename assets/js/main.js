@@ -210,16 +210,27 @@ indstillinger.addEventListener('click', function (event) {
     event.preventDefault();
     // Opdater nuDisplayDiv med oversigtindhold
     nuDisplayDiv.innerHTML = `
-        <div id="dato">
-            <div id="datoSøgefelt"></div>
-            <p>Indstillinger</p>
+    <div id="valgBox">
+        <div id="moms"><p>PRISER INKL. MOMS</p><label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+       </label></div>
+
+       <div id="moms"><p>LAVESTE PRIS ALARM</p><label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+       </label></div>
+
+       <div id="moms">
+            <p>VÆLG REGION</p>
+            <select id="regionSelect">
+                <option value="vest"class="regValg">VEST DANMARK</option>
+                <option value="øst"class="regValg">ØST DANMARK</option>
+            </select>
         </div>
-        <div id="gamle-timer">
-            <table>
-                <!-- Her kan du tilføje tabellens indhold for historik -->
-            </table>
-        </div>
-    `;
+    </div>
+`;
+
     // Opdater h2-teksten til "indstillinger"
     tandhjulContainer.querySelector('h2').textContent = 'INDSTILLINGER';
 });
