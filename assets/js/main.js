@@ -303,9 +303,9 @@ function hentOgVisTimePriser(selectedDate) {
     const måned = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
     const dag = selectedDate.getDate().toString().padStart(2, '0');
     const prisklasse = region;
-    // const apiUrl2 = `https://www.elprisenligenu.dk/api/v1/prices/${år}-${måned}-${dag}_${prisklasse}`; // Erstat DIN_API_URL med den faktiske URL
+    const apiUrl2 = `https://www.elprisenligenu.dk/api/v1/prices/${år}/${måned}-${dag}_${prisklasse}.json`; // Erstat DIN_API_URL med den faktiske URL
   
-    fetch(apiUrl)
+    fetch(apiUrl2)
       .then(response => response.json()) // Konverter JSON-responsen til et JavaScript-objekt
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
