@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const region = 'DK2';
 
     // INNER HTML
-    tandhjulContainer.innerHTML = ' <a href="#"><i id="fas" class="fas fa-gear" style="color: #55EC20;"></i></a><h2>ELPRISEN LIGE NU</h2';
+    tandhjulContainer.innerHTML = ' <a href="#"><i id="fas" class="fas fa-gear" style="color: #55EC20;"></i></a><h2>ELPRISEN LIGE NU</h2>';
     topBar.innerHTML = `
         <div class="left">
             <img src="assets/appIcons/mainIcon.ico" alt="Logo">
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             locationTekst = 'Ukendt område';
         }
-        footerInfo.innerHTML = `<p>Priserne er <span>ex. moms</span> og afgifter</p> <p>Du vises lige nu priserne for<span style="color: #55EC20;"> ${locationTekst}</span></p`;
+        footerInfo.innerHTML = `<p>Priserne er <span>ex. moms</span> og afgifter</p> <p>Du vises lige nu priserne for<span style="color: #55EC20;" ${locationTekst}</span></p>`;
     }
     // Kald funktionen for at opdatere teksten i info-footer baseret på region
     opdaterInfoFooter(region);
@@ -351,24 +351,118 @@ function hentOgVisTimePriser(selectedDate) {
     });
 
     // "OVERSIGT"
+    
     const oversigtLink = document.querySelector('#topBar .right ul li:nth-child(1) a');
     oversigtLink.addEventListener('click', function (event) {
         event.preventDefault();
         // Opdater nuDisplayDiv med oversigtindhold
         nuDisplayDiv.innerHTML = `
-            <div id="dato">
-                <div id="datoSøgefelt"></div>
-                <p>oversigt</p>
+        <div id="lavHoj">
+         <div id="lav">
+            <div id="lavPris">
+            <h2 id="lavh2">pris</h2>
+            <h5>PR. KWH</h5>
             </div>
-            <div id="gamle-timer">
-                <table>
-                    <!-- Her kan du tilføje tabellens indhold for historik -->
-                </table>
+            <p>LAVESTE PRIS</p>
+         </div>
+         <div id="hoj">
+            <div id="hojPris">
+            <h2 id="hojh2"></h2>
+            <h5>PR. KWH</h5>
             </div>
+            <p>HØJESTE PRIS</p>
+         </div>    
+        </div>
+        <div id="overbliksContainer">
+        </div>
         `;
-        // Opdater h2-teksten til "HISTORIK"
+        // Vis dagens timepriser i overbliksContainer
+    visDagensTimepriser(apiUrl);
+        // Opdater h2-teksten til "oversigt"
         tandhjulContainer.querySelector('h2').textContent = 'OVERSIGT';
     });
+    function visDagensTimepriser(apiUrl) {
+        // Find det overordnede container-element for timepriser
+        const overbliksContainer = document.getElementById('overbliksContainer');
+    
+        // Hent data fra API'en
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Loop gennem data og opret HTML-elementer for hver timepris
+                for (const entry of data) {
+                    const time_start = new Date(entry.time_start).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+                    const pris = entry.DKK_per_kWh;
+    
+                    // Opret en container til hver timepris
+                    const timeprisContainer = document.createElement('div');
+                    timeprisContainer.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
+    
+                    // Opret og tilføj p-elementer med tid og pris
+                    const tidElement = document.createElement('p');
+                    tidElement.textContent = `kl. ${time_start}`;
+                    const prisElement = document.createElement('p');
+                    prisElement.textContent = `${pris} kr/kWh`;
+    
+                    // Tilføj tid og pris til timepriscontaineren
+                    timeprisContainer.appendChild(tidElement);
+                    timeprisContainer.appendChild(prisElement);
+    
+                    // Tilføj timepriscontaineren til overbliksContainer
+                    overbliksContainer.appendChild(timeprisContainer);
+                }
+            })
+            .catch(error => {
+                console.error('Fejl ved hentning af timepriser:', error);
+            });
+                // Funktion til at finde den højeste og laveste timepris
+function findHojesteOgLavestePris(priser) {
+    let hojestePris = priser[0].DKK_per_kWh;
+    let lavestePris = priser[0].DKK_per_kWh;
+
+    for (const pris of priser) {
+        const aktuelPris = pris.DKK_per_kWh;
+
+        if (aktuelPris > hojestePris) {
+            hojestePris = aktuelPris;
+        }
+
+        if (aktuelPris < lavestePris) {
+            lavestePris = aktuelPris;
+        }
+    }
+
+    return { hojestePris, lavestePris };
+}
+
+// Hent timepriser og opdater hoj og lav
+function hentOgOpdaterTimePriser() {
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                const priser = data;
+                const { hojestePris, lavestePris } = findHojesteOgLavestePris(priser);
+
+                // Opdater "hoj" og "lav" h2-tags med de fundne priser
+                const hojPrisH2 = document.getElementById('hojh2');
+                const lavPrisH2 = document.getElementById('lavh2');
+                hojPrisH2.textContent = `${hojestePris.toFixed(3)} KR`;
+                lavPrisH2.textContent = `${lavestePris.toFixed(3)} KR`;
+            } else {
+                console.error('Ingen data blev fundet i JSON-responsen.');
+            }
+        })
+        .catch(error => {
+            console.error('Fejl ved hentning af timepriser:', error);
+        });
+}
+
+// Kald funktionen for at hente og opdatere timepriserne
+hentOgOpdaterTimePriser();
+    }
+
+
 
     //INDSTILLINGER
     const indstillinger = document.getElementById('fas');
@@ -400,4 +494,5 @@ function hentOgVisTimePriser(selectedDate) {
         // Opdater h2-teksten til "indstillinger"
         tandhjulContainer.querySelector('h2').textContent = 'INDSTILLINGER';
     });
+
 });
