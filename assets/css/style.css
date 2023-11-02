@@ -63,7 +63,7 @@ body {
 #tandhjulContainer{
     background-color: #27282B;
     text-align: end;
-    height: 100px;
+    height: 80px;
 }
 #tandhjulContainer i{
     padding: 1rem;
@@ -336,4 +336,113 @@ color: #EBEBEB;
     margin-top: 2rem;
     color: #EBEBEB;
     font-size: 0.8rem;
+}
+/* oversigt */
+#lavHoj{
+    display:flex;
+    justify-content: space-between;
+    width: 70vw;
+    margin: auto;
+    color: #EBEBEB;
+    font-weight: 100;
+    font-size: 0.7rem;
+}
+#lavPris {
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    border-radius: 50%;
+    width: 7rem;
+    height: 7rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: #EBEBEB;
+    font-size: 0.7rem;
+    line-height: 1.3rem;
+}
+#hojPris {
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    border-radius: 50%;
+    width: 7rem;
+    height: 7rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: #EBEBEB;
+    font-size: 0.7rem;
+    line-height: 1.3rem;
+}
+
+#lavPris::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
+#hojPris::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
+
+h2,
+h5 {
+    position: relative;
+}
+/* timetabel OVERBLIK*/
+.overblik {
+    display: flex;justify-content: space-around;
+    overflow: auto;
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    margin-top: 5rem;
+   width: 90vw;
+    border-radius: 8px;
+    margin: auto;
+    padding: 0.5rem;
+    font-size: 0.7em;
+    color: #EBEBEB;
+   
+}
+#overbliksContainer{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 200px; /* Juster højden efter behov */
+    overflow-y: auto;
+}
+.upcomingHours {
+    display: flex;
+    justify-content: space-between;
+    /* Tilføj space-between for at fordele elementerne jævnt */
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+.time-divider {
+    width: 100%;
+    border-top: 2px solid #161515;
+    margin: 0 auto;
+}
+#dag p{
+    color: #55EC20;
 }
