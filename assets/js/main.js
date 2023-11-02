@@ -308,26 +308,28 @@ function hentOgVisTimePriser(selectedDate) {
     fetch(apiUrl2)
       .then(response => response.json()) // Konverter JSON-responsen til et JavaScript-objekt
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          const hourlyPrices = data; // Antages at API'et leverer priser i timeintervaller
-  
-          // Opret en liste og tilføj hvert timeinterval og pris som et element i listen
-          const timePriserListe = document.createElement('ul');
-          timePriserListe.classList.add('time-priser-liste');
-  
-          hourlyPrices.forEach(item => {
-            const time_start = new Date(item.time_start).getHours();
-            const pris = item.DKK_per_kWh;
-  
-            const listItem = document.createElement('li');
-            listItem.textContent = `Kl. ${time_start}:00 - Pris: ${pris} KR/kWh`;
-            timePriserListe.appendChild(listItem);
-          });
-  
-          timePriserDiv.appendChild(timePriserListe);
-        } else {
-          console.error('Ingen data blev fundet i JSON-responsen.');
-        }
+// Loop gennem data og opret HTML-elementer for hver timepris
+for (const entry of data) {
+    const time_start = new Date(entry.time_start).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+    const pris = entry.DKK_per_kWh;
+
+    // Opret en container til hver timepris
+    const timeprisContainer = document.createElement('div');
+    timeprisContainer.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
+
+    // Opret og tilføj p-elementer med tid og pris
+    const tidElement = document.createElement('p');
+    tidElement.textContent = `kl. ${time_start}`;
+    const prisElement = document.createElement('p');
+    prisElement.textContent = `${pris} kr/kWh`;
+
+    // Tilføj tid og pris til timepriscontaineren
+    timeprisContainer.appendChild(tidElement);
+    timeprisContainer.appendChild(prisElement);
+
+    // Tilføj timepriscontaineren til overbliksContainer
+    timePriser.appendChild(timeprisContainer);
+}
       })
       .catch(error => {
         console.error('Fejl ved hentning af timepriser:', error);

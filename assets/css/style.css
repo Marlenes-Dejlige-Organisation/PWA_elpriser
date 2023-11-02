@@ -430,6 +430,12 @@ h5 {
     max-height: 200px; /* Juster højden efter behov */
     overflow-y: auto;
 }
+#timePriser{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 210px; /* Juster højden efter behov */
+    overflow-y: auto;
+}
 .upcomingHours {
     display: flex;
     justify-content: space-between;
