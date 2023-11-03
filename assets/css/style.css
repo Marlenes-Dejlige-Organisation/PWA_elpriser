@@ -9,7 +9,6 @@
 }
 
 body {
-    top: 0;
     font-family: 'Roboto Condensed', sans-serif;
     color: #ebebeb;
     background-color: #201E1E;
@@ -452,3 +451,25 @@ h5 {
 #dag p{
     color: #55EC20;
 }
+@media screen and (min-width: 700px) {
+/*.nuDisplay BEMÆRK DEN HAR HØJDE PÅ som skubber til footer!*/
+#nuDisplay {
+    background-color: #27282B;
+    text-align: center;
+    color: #55EC20;
+    padding-top: 5vh;
+}
+#overbliksContainer{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 40%; /* Juster højden efter behov */
+    overflow-y: auto;
+}
+#timePriser{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-height: 40%; /* Juster højden efter behov */
+    overflow-y: auto;
+}  
+
+  }

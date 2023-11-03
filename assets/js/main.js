@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const footerInfo = document.getElementById('info-footer');
     const topBar = document.getElementById('topBar');
     const tandhjulContainer = document.getElementById('tandhjulContainer');
-    const region = 'DK2';
+    const region = 'DK1';
 
     // INNER HTML
     tandhjulContainer.innerHTML = ' <a href="#"><i id="fas" class="fas fa-gear" style="color: #55EC20;"></i></a><h2>ELPRISEN LIGE NU</h2>';
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             locationTekst = 'Ukendt område';
         }
-        footerInfo.innerHTML = `<p>Priserne er <span>ex. moms</span> og afgifter</p> <p>Du vises lige nu priserne for<span style="color: #55EC20;" ${locationTekst}</span></p>`;
+        footerInfo.innerHTML = `<p>Priserne er <span>ex. moms</span> og afgifter</p> <p>Du vises lige nu priserne for <span style="color: #55EC20;"> ${locationTekst}</span></p>`;
     }
     // Kald funktionen for at opdatere teksten i info-footer baseret på region
     opdaterInfoFooter(region);
