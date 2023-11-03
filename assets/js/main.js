@@ -190,13 +190,15 @@ calendarModalContent.innerHTML = `
     </div>
     <div id="calendar-body">
       <div class="weekdays">
-        <div>Søn</div>
+      <div>Søn</div>
         <div>Man</div>
         <div>Tir</div>
         <div>Ons</div>
         <div>Tor</div>
         <div>Fre</div>
         <div>Lør</div>
+
+        
       </div>
       <div id="calendar-dates"></div>
     </div>
