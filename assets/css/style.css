@@ -224,14 +224,13 @@ h5 {
   #regionSelect{
     background-color: #201E1E;
     color: #EBEBEB;
-    border: #55EC20 solid 0px;
     font-size: 0.7rem;
-  
-    float:left;
+    border: #27282B;
   }
   .regValg{
     background-color: #201E1E;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
+    border: #27282B;
   }
 /* HISTORIKSIDEN */
 .search-bar {
@@ -286,8 +285,10 @@ h5 {
     width: 60%;
     background-color: #fff;
     border: 1px solid #000;
-    padding: 20px;
+    padding: 2rem;
     color: #000;
+    margin: auto;
+    text-align: center;
 }
 
 #calendar-header {
@@ -297,21 +298,24 @@ h5 {
     margin-bottom: 10px;
 }
 
-#prev-month,
-#next-month {
+#prev-month,#next-month
+ {
     background: none;
     border: none;
     cursor: pointer;
+
 }
+
 
 .weekdays {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    width: 100%;
-    gap: 0.5rem;
-    margin: auto;
-}
 
+    gap: 0.06rem;
+    margin: auto;
+    font-weight: 100;
+    margin-bottom: 0.5rem;
+}
 
 
 #calendar-dates {
@@ -459,17 +463,42 @@ h5 {
     color: #55EC20;
     padding-top: 5vh;
 }
-#overbliksContainer{
-    margin-top: 1rem;
+
+#overbliksContainer {
+    margin-top: 2%;
     margin-bottom: 1rem;
     max-height: 40%; /* Juster højden efter behov */
     overflow-y: auto;
-}
+  }
+  
+  #overbliksContainer::-webkit-scrollbar {
+    width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
+  }
+  
+  #overbliksContainer::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Gør tommelfingeren usynlig */
+  }
+  
+  #overbliksContainer::-webkit-scrollbar-track {
+    background-color: transparent; /* Gør sporingsområdet usynligt */
+  }
+  
+
 #timePriser{
     margin-top: 1rem;
     margin-bottom: 1rem;
-    max-height: 40%; /* Juster højden efter behov */
+    max-height: 50%; /* Juster højden efter behov */
     overflow-y: auto;
 }  
-
+#timePriser::-webkit-scrollbar {
+    width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
+  }
+  
+  #timePriser::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Gør tommelfingeren usynlig */
+  }
+  
+  #timePriser::-webkit-scrollbar-track {
+    background-color: transparent; /* Gør sporingsområdet usynligt */
+  }
   }
