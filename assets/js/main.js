@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Variabler til HTML-indhold
     const nuDisplayDiv = document.getElementById('nuDisplay');
+    const nuDisplayD = document.getElementById('nuDisplayD');
+    const overskrifterD = document.getElementById('overskrifterD');
     const footerInfo = document.getElementById('info-footer');
     const topBar = document.getElementById('topBar');
     const tandhjulContainer = document.getElementById('tandhjulContainer');
@@ -56,6 +58,54 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <p>klokkeslet</p>
     `;
+    nuDisplayD.innerHTML = `
+    
+    <div id="nuD">
+     <div id="cirkelPrisD"><h2>pris</h2><h5>PR. KWH</h5></div> 
+     <p>klokkeslet</p>
+      <div id="lavHojD">
+       <div id="lavD"><div id="lavPrisD"><h2 id="lavh2D">pris</h2><h5>PR. KWH</h5></div><p>LAVESTE PRIS</p></div>
+       <div id="hojD"><div id="hojPrisD"><h2 id="hojh2D">pris</h2><h5>PR. KWH</h5></div><p>HØJESTE PRIS</p></div>
+         
+     </div>
+    </div>
+    
+    <div id="oversigtD">
+      <div id="overbliksContainerD"></div>
+    </div>
+    
+    <div id="historieD">
+      <div class="search-bar">
+        <div class="search-input"><input type="text" id="herD" placeholder="vælg en dato"></div>
+        
+        <div class="calendar-icon"><i class="fa-solid fa-calendar-days" style="color: #55EC20;"></i></div>
+      </div>
+
+        
+        <div id="timePriserD"></div>
+    </div>
+
+`;
+overskrifterD.innerHTML =`
+<h3>ELPRISEN LIGE NU</h3>
+<h3>OVERSIGT</h3>
+<h3>HISTORIK</h3>
+`;
+
+
+// Gem en reference til calendarIcon
+const calendarIcon = document.querySelector('.calendar-icon i');
+        // Tilføj en eventlistener til calendarIcon
+        calendarIcon.addEventListener('click', function () {
+            // Åbn modalen ved at ændre display-stilen
+            calendarModal.style.display = 'block';
+        });
+        // Luk modalen, når der klikkes uden for modalindholdet
+        window.addEventListener('click', function (event) {
+            if (event.target === calendarModal) {
+                calendarModal.style.display = 'none';
+            }
+        });
 
     // Funktion til at opdatere teksten baseret på region
     function opdaterInfoFooter(region) {
@@ -91,6 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hent en reference til h2-elementet
     const nuDisplayH2 = document.querySelector('#nuDisplay h2');
     const nuDisplayTid = document.querySelector('#nuDisplay p');
+    const nuDisplayH2D = document.querySelector('#nuDisplayD h2');
+    const nuDisplayTidD = document.querySelector('#nuDisplayD p');
 
     // Funktion til at hente og opdatere elprisen
     function hentOgOpdaterElpris() {
@@ -108,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Opdater h2-elementet med den aktuelle pris og p-elementet med tidsspændet
                     nuDisplayH2.textContent = `${formateretPris} KR`;
+                    nuDisplayH2D.textContent = `${formateretPris} KR`;
                     // Opdater p-elementet med tidsintervallet
                     tidsstart.setMinutes(0);
                     tidsstart.setSeconds(0);
@@ -121,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const tidsstartString = `${tidsstart.getHours().toString().padStart(2, '0')}:00`;
                     const tidsslutString = `${tidsslut.getHours().toString().padStart(2, '0')}:00`;
                     nuDisplayTid.textContent = `${tidsstartString}-${tidsslutString}`;
+                    nuDisplayTidD.textContent = `${tidsstartString}-${tidsslutString}`;
                 } else {
                     console.error('Ingen data blev fundet i JSON-responsen.');
                 }
@@ -251,17 +305,27 @@ function updateCalendar(date) {
         hentOgVisTimePriser(selectedDate); // TimePRISER
         // Formater datoen som "dd-mm-yyyy"
         const formattedDate = `${String(day).padStart(2, '0')}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${selectedDate.getFullYear()}`;
-      
-        // Indsæt den formaterede dato i inputfeltet
+        // Indsæt teksten "ELPRISERNE FOR" foran formattedDate
+  const fullText = `ELPRISERNE FOR D. ${formattedDate}`;
+        if (window.innerWidth >= 700) {
+            // Desktop-stilarter
+           // Indsæt den formaterede dato i inputfeltet
+         const myInputD = document.getElementById('herD');
+         myInputD.value = formattedDate;
+            // Indsæt den fulde tekst i p-tagget
+  const mypD = document.getElementById('her2D');
+  mypD.textContent = fullText;
+  
+          } else {
+            // Mobil-stilarter
+            // Indsæt den formaterede dato i inputfeltet
         const myInput = document.getElementById('her');
         myInput.value = formattedDate;
-
-         // Indsæt teksten "ELPRISERNE FOR" foran formattedDate
-  const fullText = `ELPRISERNE FOR D. ${formattedDate}`;
-
-  // Indsæt den fulde tekst i p-tagget
+            // Indsæt den fulde tekst i p-tagget
   const myp = document.getElementById('her2');
   myp.textContent = fullText;
+          }
+    
       
         // Skjul modalen ved at ændre dens display-stil til "none"
         const calendarModal = document.getElementById('calendar-modal');
@@ -297,8 +361,17 @@ calendarModal.addEventListener('click', (e) => {
 //----------------timepris
 
 function hentOgVisTimePriser(selectedDate) {
-    const timePriserDiv = document.getElementById('timePriser');
+    if (window.innerWidth >= 700) {
+        // Desktop-stilarter
+        const timePriserD = document.getElementById('timePriserD');
+    timePriserD.innerHTML = ''; // Ryd tidligere priser, hvis der er nogen
+      } else {
+        // Mobil-stilarter
+        const timePriserDiv = document.getElementById('timePriser');
     timePriserDiv.innerHTML = ''; // Ryd tidligere priser, hvis der er nogen
+      }
+  
+    
   
     // Hent året, måneden og dagen fra den valgte dato
     const år = selectedDate.getFullYear();
@@ -314,23 +387,33 @@ function hentOgVisTimePriser(selectedDate) {
 for (const entry of data) {
     const time_start = new Date(entry.time_start).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
     const pris = entry.DKK_per_kWh;
-
-    // Opret en container til hver timepris
-    const timeprisContainer = document.createElement('div');
-    timeprisContainer.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
-
     // Opret og tilføj p-elementer med tid og pris
     const tidElement = document.createElement('p');
     tidElement.textContent = `kl. ${time_start}`;
     const prisElement = document.createElement('p');
     prisElement.textContent = `${pris} kr/kWh`;
-
+    
+    if (window.innerWidth >= 700) {
+        // Desktop-stilarter
+        const timeprisContainerD = document.createElement('div');
+    timeprisContainerD.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
+    // Tilføj tid og pris til timepriscontaineren
+    timeprisContainerD.appendChild(tidElement);
+    timeprisContainerD.appendChild(prisElement);
+    // Tilføj timepriscontaineren til overbliksContainer
+    timePriserD.appendChild(timeprisContainerD);
+      } else {
+        // Mobil-stilarter
+        // Opret en container til hver timepris
+    const timeprisContainer = document.createElement('div');
+    timeprisContainer.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
     // Tilføj tid og pris til timepriscontaineren
     timeprisContainer.appendChild(tidElement);
     timeprisContainer.appendChild(prisElement);
+     // Tilføj timepriscontaineren til overbliksContainer
+     timePriser.appendChild(timeprisContainer);
+      }
 
-    // Tilføj timepriscontaineren til overbliksContainer
-    timePriser.appendChild(timeprisContainer);
 }
       })
       .catch(error => {
@@ -385,9 +468,12 @@ for (const entry of data) {
         // Opdater h2-teksten til "oversigt"
         tandhjulContainer.querySelector('h2').textContent = 'OVERSIGT';
     });
+
     function visDagensTimepriser(apiUrl) {
-        // Find det overordnede container-element for timepriser
-        const overbliksContainer = document.getElementById('overbliksContainer');
+        // Find det overordnede container-element for timepriser (mobil)
+    const overbliksContainer = document.getElementById('overbliksContainer');
+    // Find det overordnede container-element for timepriser (desktop)
+  
     
         // Hent data fra API'en
         fetch(apiUrl)
@@ -407,6 +493,8 @@ for (const entry of data) {
                     tidElement.textContent = `kl. ${time_start}`;
                     const prisElement = document.createElement('p');
                     prisElement.textContent = `${pris} kr/kWh`;
+
+                    
     
                     // Tilføj tid og pris til timepriscontaineren
                     timeprisContainer.appendChild(tidElement);
@@ -466,7 +554,106 @@ function hentOgOpdaterTimePriser() {
 hentOgOpdaterTimePriser();
     }
 
+//----------------desktop:
+// Lyt efter vinduets ændringer og kald funktionen, hvis skærmbredden er over 700px
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 700) {
+        visDagensTimepriserD(apiUrl);
+    }
+});
+// Lyt efter vinduets ændringer og kald funktionen, hvis skærmbredden er over 700px
+window.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth > 700) {
+        console.log('desktopFunktion');
+        visDagensTimepriserD(apiUrl);
+    }
+});
 
+function visDagensTimepriserD(apiUrl) {
+    console.log('hllo esktop');
+    // Find det overordnede container-element for timepriser (mobil)
+const overbliksContainer = document.getElementById('overbliksContainerD');
+// Find det overordnede container-element for timepriser (desktop)
+
+
+    // Hent data fra API'en
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Loop gennem data og opret HTML-elementer for hver timepris
+            for (const entry of data) {
+                const time_start = new Date(entry.time_start).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+                const pris = entry.DKK_per_kWh;
+
+                // Opret en container til hver timepris
+                const timeprisContainer = document.createElement('div');
+                timeprisContainer.classList.add('overblik'); // Du kan tilføje CSS-klasser efter behov
+
+                // Opret og tilføj p-elementer med tid og pris
+                const tidElement = document.createElement('p');
+                tidElement.textContent = `kl. ${time_start}`;
+                const prisElement = document.createElement('p');
+                prisElement.textContent = `${pris} kr/kWh`;
+
+                
+
+                // Tilføj tid og pris til timepriscontaineren
+                timeprisContainer.appendChild(tidElement);
+                timeprisContainer.appendChild(prisElement);
+
+                // Tilføj timepriscontaineren til overbliksContainer
+                overbliksContainer.appendChild(timeprisContainer);
+            }
+        })
+        .catch(error => {
+            console.error('Fejl ved hentning af timepriser:', error);
+        });
+            // Funktion til at finde den højeste og laveste timepris
+function findHojesteOgLavestePris(priser) {
+let hojestePris = priser[0].DKK_per_kWh;
+let lavestePris = priser[0].DKK_per_kWh;
+
+for (const pris of priser) {
+    const aktuelPris = pris.DKK_per_kWh;
+
+    if (aktuelPris > hojestePris) {
+        hojestePris = aktuelPris;
+    }
+
+    if (aktuelPris < lavestePris) {
+        lavestePris = aktuelPris;
+    }
+}
+
+return { hojestePris, lavestePris };
+}
+
+// Hent timepriser og opdater hoj og lav
+function hentOgOpdaterTimePriser() {
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+            const priser = data;
+            const { hojestePris, lavestePris } = findHojesteOgLavestePris(priser);
+
+            // Opdater "hoj" og "lav" h2-tags med de fundne priser
+            const hojPrisH2D = document.getElementById('hojh2D');
+            const lavPrisH2D = document.getElementById('lavh2D');
+            hojPrisH2D.textContent = `${hojestePris.toFixed(3)} KR`;
+            lavPrisH2D.textContent = `${lavestePris.toFixed(3)} KR`;
+        } else {
+            console.error('Ingen data blev fundet i JSON-responsen.');
+        }
+    })
+    .catch(error => {
+        console.error('Fejl ved hentning af timepriser:', error);
+    });
+}
+
+// Kald funktionen for at hente og opdatere timepriserne
+hentOgOpdaterTimePriser();
+}
 
     //INDSTILLINGER
     const indstillinger = document.getElementById('fas');
