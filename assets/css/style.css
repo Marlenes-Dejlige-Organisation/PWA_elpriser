@@ -84,6 +84,13 @@ body {
     font-weight: 400;
 }
 
+#nuDisplayD {
+    display: none;
+}
+#nuDisplayD h2, h5{
+    font-weight: 400;
+}
+
 #cirkelPris {
     background-color: #201E1E;
     border: #414142 solid 3px;
@@ -101,6 +108,35 @@ body {
 }
 
 #cirkelPris::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
+#topD{
+    background-color: #000;
+     }
+#cirkelPrisD {
+    background-color: #201E1E;
+    border: #414142 solid 3px;
+    border-radius: 50%;
+    width: 15rem;
+    height: 15rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+#cirkelPrisD::before {
     content: "";
     position: absolute;
     top: 5px;
@@ -154,7 +190,7 @@ h5 {
 #moms{
     display: flex;
     justify-content: space-between;
-    
+
     color: #EBEBEB;
     font-size: 0.7rem;
     font-weight: 100;
@@ -169,7 +205,7 @@ h5 {
     width: 60px;
     height: 34px;
   }
-  
+
   /* Hide default HTML checkbox */
   .switch input {
     opacity: 0;
@@ -188,7 +224,7 @@ h5 {
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -201,23 +237,23 @@ h5 {
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+
   input:checked + .slider {
     border: #55EC20 dotted 2px;
   }
-  
- 
+
+
   input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
   }
-  
+
   /* Rounded sliders */
   .slider.round {
     border-radius: 34px;
   }
-  
+
   .slider.round:before {
     border-radius: 50%;
   }
@@ -241,12 +277,12 @@ h5 {
     border: 0px solid #ccc;
     border-radius: 5px;
   }
-  
+
   .search-input {
     flex: 1;
     padding-right: 10px;
   }
-  
+
   input[type="text"] {
     width: 90%;
     padding: 1rem;
@@ -255,6 +291,7 @@ h5 {
     position: relative;
     background-color: #201E1E;
     border-radius: 8px;
+    color: #EBEBEB;
   }
   /* fontawesomeikon */
   .calendar-icon {
@@ -263,9 +300,45 @@ h5 {
     position: absolute;
     right:12%;
   }
+  #nuDisplayD .calendar-icon {
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    right:0;
+    margin: auto;
+    border: #000 3 px solid;
+  }
+  #nuDisplayD .search-bar {
+    /* width: 200px; */
+    padding:0;
 
-  
-  
+  }
+
+  #nuDisplayD .search-input {
+    padding: 0;
+  }
+
+  #nuDisplayD input[type="text"] {
+    /* width: 100%; */
+    padding: 1rem;
+    border: 1px solid #7777777a;
+    position: relative;
+    top: 0;
+    background-color: #201E1E;
+    border-radius: 8px;
+    color: #EBEBEB;
+  }
+    /* fontawesomeikon */
+    #nuDisplayD .calendar-icon {
+        font-size: 20px;
+        cursor: pointer;
+        position: absolute;
+        right:10%;
+        z-index: 2;
+      }
+
+
+
   /* kalender modal */
   .modal {
     display: none;
@@ -334,6 +407,9 @@ color: #55EC20;
 #her{
 color: #EBEBEB;
 }
+input#herD{
+    width: 100%;
+}
 
 #her2{
     margin-top: 2rem;
@@ -347,6 +423,17 @@ color: #EBEBEB;
     width: 70vw;
     margin: auto;
     color: #EBEBEB;
+    font-weight: 100;
+    font-size: 0.7rem;
+}
+#lavHojD{
+    display:flex;
+    justify-content: space-evenly;
+    /* width: 70vw; */
+    margin: auto;
+    margin-top: 3rem;
+    color: #EBEBEB;
+    padding: 0 ;
     font-weight: 100;
     font-size: 0.7rem;
 }
@@ -407,7 +494,63 @@ color: #EBEBEB;
     border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
     border-radius: 50%;
 }
+#lavPrisD {
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: #EBEBEB;
+    font-size: 0.7rem;
+    line-height: 1.3rem;
+}
+#hojPrisD {
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    color: #EBEBEB;
+    font-size: 0.7rem;
+    line-height: 1.3rem;
+}
 
+#lavPrisD::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
+#hojPrisD::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1.35px dashed #55EC20; /* Ydre stiplede grønne ring */
+    border-radius: 50%;
+}
 h2,
 h5 {
     position: relative;
@@ -425,20 +568,74 @@ h5 {
     padding: 0.5rem;
     font-size: 0.7em;
     color: #EBEBEB;
-   
 }
+#nuDisplayD .overblik {
+    display: flex;justify-content: space-around;
+    overflow: auto;
+    background-color: #201E1E;
+    border: #41414296 solid 3px;
+    margin-top: 5rem;
+   width:100%;
+    border-radius: 8px;
+    margin:auto;
+    padding: 0.5rem;
+    font-size: 0.7em;
+    color: #EBEBEB;
+}
+
 #overbliksContainer{
     margin-top: 1rem;
     margin-bottom: 1rem;
     max-height: 200px; /* Juster højden efter behov */
     overflow-y: auto;
 }
+#overbliksContainerD{
+    color: #EBEBEB;
+    
+    margin-bottom: 1rem;
+    max-height: 70vh; /* Juster højden efter behov */
+    overflow-y: auto;
+    /* width: 200px; */
+}
+
+
+#overbliksContainerD::-webkit-scrollbar {
+    width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
+  }
+
+  #overbliksContainerD::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Gør tommelfingeren usynlig */
+  }
+
+  #overbliksContainerD::-webkit-scrollbar-track {
+    background-color: transparent; /* Gør sporingsområdet usynligt */
+  }
+
 #timePriser{
     margin-top: 1rem;
     margin-bottom: 1rem;
     max-height: 210px; /* Juster højden efter behov */
     overflow-y: auto;
 }
+#timePriserD{
+padding-top: 2rem;
+    color: #EBEBEB;
+    
+    margin-bottom: 1rem;
+    max-height: 64vh; /* Juster højden efter behov */
+    overflow-y: auto;
+}
+#timePriserD::-webkit-scrollbar {
+    width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
+  }
+
+  #timePriserD::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Gør tommelfingeren usynlig */
+  }
+
+  #timePriserD::-webkit-scrollbar-track {
+    background-color: transparent; /* Gør sporingsområdet usynligt */
+  }
 .upcomingHours {
     display: flex;
     justify-content: space-between;
@@ -455,49 +652,66 @@ h5 {
 #dag p{
     color: #55EC20;
 }
+#overskrifterD{
+    display: none;
+}
+#overskrifterD h3{
+    font-weight: 100;
+    margin: auto;
+    font-size: 1.3rem;
+    width: 200px;
+    text-align: center;
+}
+#nuD, #oversigtD, #historieD{
+width: 25%;
+margin: 0 auto;
+}
+
 @media screen and (min-width: 700px) {
 /*.nuDisplay BEMÆRK DEN HAR HØJDE PÅ som skubber til footer!*/
 #nuDisplay {
+    display:none;
+}
+#overskrifterD{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #27282B;;
+    padding: 4rem;
+}
+
+#nuDisplayD {
+    display: flex;
+    justify-content:space-evenly;
     background-color: #27282B;
     text-align: center;
     color: #55EC20;
-    padding-top: 5vh;
+    padding: 0 4rem 0 4rem;
+    
+}
+#overbliksContainer {
+    display: none
+  }
+
+#tandhjulContainer{
+    display: none;
 }
 
-#overbliksContainer {
-    margin-top: 2%;
-    margin-bottom: 1rem;
-    max-height: 40%; /* Juster højden efter behov */
-    overflow-y: auto;
-  }
-  
-  #overbliksContainer::-webkit-scrollbar {
-    width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
-  }
-  
-  #overbliksContainer::-webkit-scrollbar-thumb {
-    background-color: transparent; /* Gør tommelfingeren usynlig */
-  }
-  
-  #overbliksContainer::-webkit-scrollbar-track {
-    background-color: transparent; /* Gør sporingsområdet usynligt */
-  }
-  
+
 
 #timePriser{
     margin-top: 1rem;
     margin-bottom: 1rem;
     max-height: 50%; /* Juster højden efter behov */
     overflow-y: auto;
-}  
+}
 #timePriser::-webkit-scrollbar {
     width: 0.1rem; /* Juster bredden til 0 for at gøre den næsten usynlig */
   }
-  
+
   #timePriser::-webkit-scrollbar-thumb {
     background-color: transparent; /* Gør tommelfingeren usynlig */
   }
-  
+
   #timePriser::-webkit-scrollbar-track {
     background-color: transparent; /* Gør sporingsområdet usynligt */
   }
