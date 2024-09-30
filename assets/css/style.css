@@ -78,7 +78,7 @@ body {
     text-align: center;
     color: #55EC20;
     padding-top: 8vh;
-    height: 65vh;
+    height: 50vh;
 }
 #nuDisplay h2, h5{
     font-weight: 400;
@@ -586,14 +586,14 @@ h5 {
 #overbliksContainer{
     margin-top: 1rem;
     margin-bottom: 1rem;
-    max-height: 200px; /* Juster højden efter behov */
+    max-height: 100px; /* Juster højden efter behov */
     overflow-y: auto;
 }
 #overbliksContainerD{
     color: #EBEBEB;
     
-    margin-bottom: 1rem;
-    max-height: 70vh; /* Juster højden efter behov */
+    margin-bottom: 10rem;
+    max-height: 55vh; /* Juster højden efter behov */
     overflow-y: auto;
     /* width: 200px; */
 }
@@ -622,7 +622,7 @@ padding-top: 2rem;
     color: #EBEBEB;
     
     margin-bottom: 1rem;
-    max-height: 64vh; /* Juster højden efter behov */
+    max-height: 48.5vh; /* Juster højden efter behov */
     overflow-y: auto;
 }
 #timePriserD::-webkit-scrollbar {
